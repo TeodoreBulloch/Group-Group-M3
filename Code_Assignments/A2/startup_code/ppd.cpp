@@ -17,21 +17,25 @@ int main(int argc, char **argv)
     if(argc!=3){
         std::cout << "Not correct amount of command line arguments given "<< std::endl;
     }else{
+        // intialize varibles to open files
         char* stock_file = argv[1];
         char* coin_file = argv[2];
         std::fstream file;
         std::fstream file2;
         file.open(stock_file);
         file2.open(coin_file);
+        //if file opened do this
         if (file && file2){
             std::cout<< "it works apparently";
-        }
+
+
+        }//if file didnt open do this
         else{
             std::cout<< "File Name/s seems to be wrongs, please check file name again";
         }
     
         file.close();
-        
+        file2.close()
 
     }
     return EXIT_SUCCESS;
