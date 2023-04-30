@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include "LinkedList.h"
+
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -9,9 +11,28 @@
 int main(int argc, char **argv)
 {
     /* validate command line arguments */
-    // TODO
+    // TODOls
 
-    std::cout << "Just a test, nothing implemented yet!" << std::endl;
+    // check if the number of command line arguments is not invalid. 
+    if(argc!=3){
+        std::cout << "Not correct amount of command line arguments given "<< std::endl;
+    }else{
+        char* stock_file = argv[1];
+        char* coin_file = argv[2];
+        std::fstream file;
+        std::fstream file2;
+        file.open(stock_file);
+        file2.open(coin_file);
+        if (file && file2){
+            std::cout<< "it works apparently";
+        }
+        else{
+            std::cout<< "File Name/s seems to be wrongs, please check file name again";
+        }
     
+        file.close();
+        
+
+    }
     return EXIT_SUCCESS;
 }
