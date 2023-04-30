@@ -1,6 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include "LinkedList.h"
+#include <string>
+
+// using 
+using std::endl;
+using std::cout;
+using std::string;
+
+//function protypes
+void print_menu();
+
+
 
 
 /**
@@ -17,21 +28,22 @@ int main(int argc, char **argv)
     if(argc!=3){
         std::cout << "Not correct amount of command line arguments given "<< std::endl;
     }else{
+        
+        string stock_file = argv[1];
+        string coin_file = argv[2];
         // intialize varibles to open files
-        char* stock_file = argv[1];
-        char* coin_file = argv[2];
         std::fstream file;
         std::fstream file2;
         file.open(stock_file);
         file2.open(coin_file);
         //if file opened do this
         if (file && file2){
-            std::cout<< "it works apparently";
-
+            cout<< "it works apparently"<<endl;
+            print_menu();
 
         }//if file didnt open do this
         else{
-            std::cout<< "File Name/s seems to be wrongs, please check file name again";
+            cout<< "File Name/s seems to be wrongs, please check file name again"<< endl;
         }
     
         file.close();
@@ -39,4 +51,26 @@ int main(int argc, char **argv)
 
     }
     return EXIT_SUCCESS;
+}
+
+
+//function to print menu
+void print_menu(){
+    cout<<"Main Menu:"<< endl;
+    cout<<"\t1.Display Items"<< endl;
+    cout<<"\t2.Purchase Items"<< endl;
+    cout<<"\t3.Save and Exit"<< endl;
+    cout<<"Administrator-Only Menu:"<< endl;
+    cout<<"\t4.Add Item"<< endl;
+    cout<<"\t5.Remove Item"<< endl;
+    cout<<"\t6.Display Coins"<< endl;
+    cout<<"\t7.Reset Stock"<< endl;
+    cout<<"\t8.Reset Coins"<< endl;
+    cout<<"\t9.Abort Program"<< endl;
+    cout<<"Select your option (1-9):"<< endl;
+
+
+
+
+
 }
