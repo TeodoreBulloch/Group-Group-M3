@@ -16,7 +16,7 @@ void Coin::StartStock(int coin []) {
 }
 
 void Coin::Tally() {
-this->ten_cent += 1;
+    
 }
 
 int Coin::Change(int difference) {
@@ -65,8 +65,10 @@ int Coin::Change(int difference) {
     return 0;
 }
 
-int Coin::Difference() {
-    return 0;
+int Coin::Difference(int tally, int cost) {
+    int difference = tally - cost;
+
+    return difference;
     
 }
  // implement functions for managing coins; this may depend on your design.

@@ -27,7 +27,7 @@ public:
     void StartStock(int coin []);
     void Tally();
     int Change(int difference);
-    int Difference();
+    int Difference(int tally, int cost);
 private:
     int ten_dollar = 0;
     int five_dollar = 0;
