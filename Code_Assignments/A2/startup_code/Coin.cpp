@@ -4,15 +4,15 @@ Coin::Coin()
 
 }
 
-void Tally() {
+void Coin::Tally() {
 
 }
 
-int Change() {
+int Coin::Change() {
     return 0;
 }
 
-int Difference() {
+int Coin::Difference() {
     return 0;
     
 }
