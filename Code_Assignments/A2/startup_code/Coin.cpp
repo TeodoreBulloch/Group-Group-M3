@@ -1,17 +1,19 @@
 #include "Coin.h"
-Coin coin () {
+Coin::Coin() 
+{
 
 }
 
-Coin Tally() {
+void Tally() {
 
 }
 
-Coin Change() {
-
+int Change() {
+    return 0;
 }
 
-Coin Difference() {
+int Difference() {
+    return 0;
     
 }
  // implement functions for managing coins; this may depend on your design.

@@ -28,25 +28,52 @@ int main(int argc, char **argv)
     if(argc!=3){
         std::cout << "Not correct amount of command line arguments given "<< std::endl;
     }else{
-        
+        // tokenize filenames presented in command line arguments
         string stock_file = argv[1];
         string coin_file = argv[2];
         // intialize varibles to open files
-        std::fstream file;
+        std::fstream file1;
         std::fstream file2;
-        file.open(stock_file);
+        file1.open(stock_file);
         file2.open(coin_file);
         //if file opened do this
-        if (file && file2){
-            cout<< "it works apparently"<<endl;
-            print_menu();
+        if (file1 && file2){
+            //string to read file
+            string myText;
+            // Use a while loop together with the getline() function to read the file line by line
+            while (getline (file1, myText)) {
+                // Output the text from the file
+                // char separator = '|';
+                // int i = 0;
+                // char arr[5];
+                // // Temporary string used to split the string.
+                // string s; 
+                // while (arr[i] != '\0') {
+                //     if (arr[i] != separator) {
+                //         // Append the char to the temp string.
+                //         s += arr[i]; 
+                //     } else {
+                //         cout << s << endl;
+                //         s.clear();
+                //     }
+                //     i++;
+
+                // }
+                
+                // // p = strtok(, " "); 
+                // cout << arr[0]<<endl;
+
+            }
+
+            //print_menu();
+            
 
         }//if file didnt open do this
         else{
             cout<< "File Name/s seems to be wrongs, please check file name again"<< endl;
         }
     
-        file.close();
+        file1.close();
         file2.close();
 
     }

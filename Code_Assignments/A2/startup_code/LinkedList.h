@@ -10,11 +10,11 @@ public:
     ~LinkedList();
 
     // more functions to be added perhaps...
-
+    
 private:
     // the beginning of the list
     Node* head;
-  
+    
     // how many nodes are there in the list?
     unsigned count;
 };
