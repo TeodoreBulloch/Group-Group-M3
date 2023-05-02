@@ -65,6 +65,8 @@ class Node
 public:
     Node();
     ~Node();
+    //new constructor to help assignm stock data
+    Node::Node(string id, string name, string descrption, unsigned dollars, unsigned cents,  unsigned on_hand);
     // pointer to the data held for the node 
     Stock* data;
     // pointer to the next node in the list 
