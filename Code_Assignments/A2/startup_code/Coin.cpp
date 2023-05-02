@@ -4,8 +4,12 @@ Coin::Coin()
 
 }
 
-void Coin::Tally() {
+void Coin::Stock() {
 
+}
+
+void Coin::Tally() {
+this->ten_cent += 1;
 }
 
 int Coin::Change() {

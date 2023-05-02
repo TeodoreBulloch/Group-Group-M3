@@ -24,9 +24,18 @@ public:
     
     // the count of how many of these are in the cash register
     unsigned count;
+    void Stock();
     void Tally();
     int Change();
     int Difference();
+private:
+    int ten_dollar = 0;
+    int five_dollar = 0;
+    int two_dollar = 0;
+    int one_dollar = 0;
+    int fifty_cent = 0;
+    int twenty_cent = 0;
+    int ten_cent = 0;
+    int five_cent = 0;
 };
-
 #endif // COIN_H
