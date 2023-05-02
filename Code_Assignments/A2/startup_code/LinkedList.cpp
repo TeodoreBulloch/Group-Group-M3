@@ -13,6 +13,7 @@ void LinkedList::appendNode(Node * node){
     else{
         //search through Nodes till find last node
         Node * currNode = this->head;
+        //
         while (currNode != nullptr){
            currNode = (*currNode).next;
         }
