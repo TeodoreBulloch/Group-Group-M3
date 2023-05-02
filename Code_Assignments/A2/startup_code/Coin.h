@@ -1,6 +1,6 @@
 #ifndef COIN_H
 #define COIN_H
-
+#include <list>
 // Coin.h defines the coin structure for managing currency in the system. 
 #define DELIM ","  // delimiter 
 
@@ -26,7 +26,7 @@ public:
     unsigned count;
     void StartStock(int coin []);
     void Tally();
-    int Change();
+    int Change(int difference);
     int Difference();
 private:
     int ten_dollar = 0;
