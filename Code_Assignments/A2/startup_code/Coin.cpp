@@ -15,8 +15,20 @@ void Coin::StartStock(int coin []) {
     this->five_cent = coin[7];
 }
 
-void Coin::Tally() {
-    
+void Coin::Set_Cost(int cost) {
+    this->product_cost = cost;
+}
+
+bool Coin::Pay(int pay) {
+    this->product_cost -= pay;
+    if (this->product_cost > 0) {
+        std::cout << "Amount left to pay: " << this->product_cost << std::endl;
+        return false;
+    }
+    else {
+        Coin::Difference(this->product_cost);
+        return true;
+    }
 }
 
 int Coin::Change(int difference) {
@@ -65,8 +77,8 @@ int Coin::Change(int difference) {
     return 0;
 }
 
-int Coin::Difference(int tally, int cost) {
-    int difference = tally - cost;
+int Coin::Difference(int overpay) {
+    int difference = abs(overpay);
 
     return difference;
     

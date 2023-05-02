@@ -1,8 +1,10 @@
 #ifndef COIN_H
 #define COIN_H
 #include <list>
+#include <vector>
 // Coin.h defines the coin structure for managing currency in the system. 
 #define DELIM ","  // delimiter 
+#include <iostream>
 
 // enumeration representing the various types of currency available in the system. 
 enum Denomination
@@ -25,9 +27,10 @@ public:
     // the count of how many of these are in the cash register
     unsigned count;
     void StartStock(int coin []);
-    void Tally();
+    void Set_Cost(int cost);
+    bool Pay(int pay);
     int Change(int difference);
-    int Difference(int tally, int cost);
+    int Difference(int overpay);
 private:
     int ten_dollar = 0;
     int five_dollar = 0;
@@ -37,5 +40,6 @@ private:
     int twenty_cent = 0;
     int ten_cent = 0;
     int five_cent = 0;
+    int product_cost = 0;
 };
 #endif // COIN_H
