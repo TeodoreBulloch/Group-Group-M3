@@ -43,24 +43,62 @@ int main(int argc, char **argv)
             // Use a while loop together with the getline() function to read the file line by line
             while (getline (file1, myText)) {
                 // Output the text from the file
-                // char separator = '|';
-                // int i = 0;
-                // char arr[5];
-                // // Temporary string used to split the string.
-                // string s; 
-                // while (arr[i] != '\0') {
-                //     if (arr[i] != separator) {
-                //         // Append the char to the temp string.
-                //         s += arr[i]; 
-                //     } else {
-                //         cout << s << endl;
-                //         s.clear();
-                //     }
-                //     i++;
+                char separator = '|';
+                int i = 0;
+                // Temporary string used to split the string.
+                string s; 
+                // count varible to check which type of item it is
+                int count = 0;
+                // intialize linked list
+                LinkedList linkedList;
+                // intiazlize head node
+                // linkedList.head = &Node();
+                // Node* curr_node  = linkedList.head;
+                // fill nodes with data 
+                while (myText[i] != '\0') {
+                    //intialize node data 
+                    string id;
+                    
+                    if (myText[i] != separator ) {
+                        // Append the char to the temp string.
+                        s += myText[i]; 
 
-                // }
-                
-                // // p = strtok(, " "); 
+                    } 
+                    else{
+                        //intialize node data
+                        if (count ==0){ 
+                            cout << "ItemId : ";
+                            
+                        }
+                        else if (count ==1){
+                            cout << "ItemName : ";
+                        }
+                        else if (count ==2){
+                            cout << "ItemDesc : ";
+
+                        }
+                         else if (count ==3){
+                            cout << "Price : ";
+
+                        }
+                         else if (count ==4){
+                            cout << "NumberOnHand  : ";
+
+                        }
+                        // cout <<"count number: " << count << endl;
+                        cout << s << endl;
+                        s.clear();
+                        count ++;
+                        
+                    }
+                    i++;
+                    
+                }
+                if (count ==4){
+                    cout << "NumberOnHand  : ";
+                    cout << s << endl;
+                }
+                // p = strtok(, " "); 
                 // cout << arr[0]<<endl;
 
             }
