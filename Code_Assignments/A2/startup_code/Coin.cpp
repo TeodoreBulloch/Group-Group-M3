@@ -31,7 +31,7 @@ bool Coin::Pay(int pay) {
     }
 }
 
-int Coin::Change(int difference) {
+std::list<int> Coin::Change(int difference) {
     std::list<int> change;
     while (1000 >= difference > 0 && this->ten_dollar > 0 && difference >= 1000) {
         change.push_back(1000);
@@ -74,7 +74,7 @@ int Coin::Change(int difference) {
         this->five_cent -= 1;
     }
     // might need to change the return depending on what format the return is needed in
-    return 0;
+    return change;
 }
 
 int Coin::Difference(int overpay) {
