@@ -9,11 +9,10 @@ Node::Node(){
     
 };
 
-Node::Node(string id, string name, string descrption, unsigned dollars, unsigned cents,  unsigned on_hand){
+Node::Node(string id, string name, string descrption, Price price,  unsigned on_hand){
     this->data->id = id;
     this->data->description = descrption;
-    this->data->price.dollars = dollars;
-    this->data->price.cents = cents;
+    this->data->price = price;
     this->data->on_hand = on_hand;
 
 }
