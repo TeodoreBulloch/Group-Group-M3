@@ -24,7 +24,7 @@ public:
     
     // the count of how many of these are in the cash register
     unsigned count;
-    void Stock();
+    void StartStock(int coin []);
     void Tally();
     int Change();
     int Difference();
