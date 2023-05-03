@@ -10,6 +10,7 @@ public:
     ~LinkedList();
 
     // more functions to be added perhaps...
+    
     void appendNode(Node * node);
 private:
     // the beginning of the list

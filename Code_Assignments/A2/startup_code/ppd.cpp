@@ -2,6 +2,7 @@
 #include <fstream>
 #include "LinkedList.h"
 #include <string>
+#include <cmath>
 
 // using 
 using std::endl;
@@ -40,6 +41,9 @@ int main(int argc, char **argv)
         if (file1 && file2){
             //string to read file
             string myText;
+            // intialize linked list
+            LinkedList linkedList;
+           
             // Use a while loop together with the getline() function to read the file line by line
             while (getline (file1, myText)) {
                 // Output the text from the file
@@ -49,11 +53,17 @@ int main(int argc, char **argv)
                 string s; 
                 // count varible to check which type of item it is
                 int count = 0;
-                // intialize linked list
-                LinkedList linkedList;
-                // intiazlize head node
-                // linkedList.head = &Node();
-                // Node* curr_node  = linkedList.head;
+                //Varibles to add into node data:                
+                //the unique id for this item
+                std::string id;
+                //the name of this item
+                std::string name;
+                //the description of this item   
+                std::string description;
+                //the price of this item
+                //Price price;
+                // how many of this item do we have on hand? 
+                //unsigned on_hand;    
                 // fill nodes with data 
                 while (myText[i] != '\0') {
                     //intialize node data 
@@ -66,22 +76,27 @@ int main(int argc, char **argv)
                     } 
                     else{
                         //intialize node data
-                        if (count ==0){ 
+                        if (count ==0){ //intialize item id
                             cout << "ItemId : ";
+                            id = s;
                             
                         }
-                        else if (count ==1){
+                        else if (count ==1){ // itialize ItemName
                             cout << "ItemName : ";
+                            // curr_node->data->name = s;
+                            name = s;
                         }
-                        else if (count ==2){
+                        else if (count ==2){// itialize Item Desc
                             cout << "ItemDesc : ";
+                            // curr_node->data->description = s;
+                            description = s;
 
                         }
-                         else if (count ==3){
+                         else if (count ==3){// itialize Item Price
                             cout << "Price : ";
-
+                           
                         }
-                         else if (count ==4){
+                         else if (count ==4){//intialize number of items
                             cout << "NumberOnHand  : ";
 
                         }
@@ -97,7 +112,12 @@ int main(int argc, char **argv)
                 if (count ==4){
                     cout << "NumberOnHand  : ";
                     cout << s << endl;
+                    //on_hand = stoi(s);
                 }
+                 // intiazlize head node
+                // Node node(string id, string name, string descrption, Price price,  unsigned on_hand);
+                // Node* curr_node= &node;
+                // linkedList.appendNode(&curr_node);
                 // p = strtok(, " "); 
                 // cout << arr[0]<<endl;
 
