@@ -1,6 +1,6 @@
 #ifndef COIN_H
 #define COIN_H
-
+#include <list>
 // Coin.h defines the coin structure for managing currency in the system. 
 #define DELIM ","  // delimiter 
 
@@ -24,9 +24,18 @@ public:
     
     // the count of how many of these are in the cash register
     unsigned count;
+    void StartStock(int coin []);
     void Tally();
-    int Change();
-    int Difference();
+    int Change(int difference);
+    int Difference(int tally, int cost);
+private:
+    int ten_dollar = 0;
+    int five_dollar = 0;
+    int two_dollar = 0;
+    int one_dollar = 0;
+    int fifty_cent = 0;
+    int twenty_cent = 0;
+    int ten_cent = 0;
+    int five_cent = 0;
 };
-
 #endif // COIN_H
