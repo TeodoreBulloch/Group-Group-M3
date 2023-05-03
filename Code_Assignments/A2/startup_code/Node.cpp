@@ -1,27 +1,19 @@
 #include "Node.h"
 #include <string>
 
-//using 
-using std:: string;
+using std::string;
 
-Node::Node(){
-    // TODO
-    
-};
+Node::Node() : next(nullptr) {
+}
 
-//  Node::Node(string id, string name, string descrption, Price price,  unsigned on_hand){
-//     this->data->id = id;
-//     this->data->description = descrption;
-//     this->data->price = price;
-//     this->data->on_hand = on_hand;
+Node::Node(const string& id, const string& name, const string& description, const Price& price, unsigned on_hand) {
+    this->data.id = id;
+    this->data.name = name;
+    this->data.description = description;
+    this->data.price = price;
+    this->data.on_hand = on_hand;
+    this->next = nullptr;
+}
 
-// }
-Node::~Node(){
-    // TODO
-    this->data = NULL;
-    delete this->data;
-
-    this->next = NULL;
-    delete this->next;
-
-};
+Node::~Node() {
+}

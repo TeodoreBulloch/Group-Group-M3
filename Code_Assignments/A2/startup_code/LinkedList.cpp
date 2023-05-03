@@ -1,27 +1,42 @@
 #include "LinkedList.h"
 
+#include "LinkedList.h"
+
 LinkedList::LinkedList() {
-
-
-   // TODO
+    head = nullptr;
 }
-void LinkedList::appendNode(Node * node){
-    //if no node head make node head
-    if (this->head == nullptr){
-        this->head = node;
+
+void LinkedList::appendNode(Node* node) {
+    if (head == nullptr) {
+        head = node;
     }
-    else{
-        //search through Nodes till find last node
-        Node * currNode = this->head;
-        //
-        while (currNode != nullptr){
-           currNode = (*currNode).next;
+    else {
+        Node* currNode = head;
+        Node* prevNode = nullptr;
+
+        // Access the name attribute through the data member of the Node class
+        while (currNode != nullptr && currNode->data.name < node->data.name) {
+            prevNode = currNode;
+            currNode = currNode->next;
         }
-        currNode = node;
 
+        if (prevNode == nullptr) {
+            node->next = head;
+            head = node;
+        }
+        else {
+            node->next = currNode;
+            prevNode->next = node;
+        }
     }
 }
+
 
 LinkedList::~LinkedList() {
-    // TODO
+    Node* currNode = head;
+    while (currNode != nullptr) {
+        Node* nextNode = currNode->next;
+        delete currNode;
+        currNode = nextNode;
+    }
 }

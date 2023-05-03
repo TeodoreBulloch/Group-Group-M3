@@ -60,16 +60,14 @@ public:
 /**
  * the node that holds the data about an item stored in memory
  **/
-class Node
-{
+class Node {
 public:
     Node();
+    Node(const std::string& id, const std::string& name, const std::string& description, const Price& price, unsigned on_hand);
     ~Node();
-    //new constructor to help assignm stock data
-    // Node(string id, string name, string descrption, Price price,  unsigned on_hand);
-    // pointer to the data held for the node 
-    Stock* data;
-    // pointer to the next node in the list 
+
+    // Stock data is now a member object, not a pointer
+    Stock data;
     Node* next;
 };
 
