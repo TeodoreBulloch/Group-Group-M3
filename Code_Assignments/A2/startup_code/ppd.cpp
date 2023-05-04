@@ -93,28 +93,19 @@ void print_menu()
     cout << "Select your option (1-9):" << endl;
 }
 
+#include "LinkedList.h"
+
 void process_option_1(const string& stock_file, const string& coin_file)
 {
     std::fstream file1;
     file1.open(stock_file);
 
+    LinkedList itemList;
+
     if (file1)
     {
-        const int idWidth = 5;
-        const int nameWidth = 40;
-        const int availableWidth = 7;
-        const int priceWidth = 12;
-
-        cout << "Items Menu" << endl;
-        cout << "----------" << endl;
-        cout << setw(idWidth) << left << "ID" << " | "
-             << setw(nameWidth) << left << "Name" << " | "
-             << setw(availableWidth) << left << "Available" << " | "
-             << setw(priceWidth) << left << "Price" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
-
         string myText;
-        
+
         while (getline(file1, myText))
         {
             char separator = '|';
@@ -144,7 +135,7 @@ void process_option_1(const string& stock_file, const string& coin_file)
                     }
                     else if (count == 3)
                     {
-                        price = "$ " + s;
+                        price = s;
                     }
                     else if (count == 4)
                     {
@@ -156,17 +147,28 @@ void process_option_1(const string& stock_file, const string& coin_file)
                 i++;
             }
 
-            // Add this line to assign the last value to available
             if (count == 4)
             {
                 available = s;
             }
 
-            cout << setw(idWidth) << left << id << " | "
-                 << setw(nameWidth) << left << name << " | "
-                 << setw(availableWidth) << left << available << " | "
-                 << setw(priceWidth) << left << price << endl;
+            // Create a new Node and Stock objects
+            Node* newNode = new Node;
+            newNode->data.id = id;
+            newNode->data.name = name;
+            newNode->data.on_hand = std::stoi(available);
+
+            // Parse price and store dollars and cents separately
+            size_t dotPos = price.find('.');
+            newNode->data.price.dollars = std::stoi(price.substr(0, dotPos));
+            newNode->data.price.cents = std::stoi(price.substr(dotPos + 1));
+
+            // Add the new node to the linked list
+            itemList.appendNode(newNode);
         }
+
+        // Call the displayItems function to display the content
+        itemList.displayItems();
     }
     else
     {
@@ -176,6 +178,7 @@ void process_option_1(const string& stock_file, const string& coin_file)
     file1.close();
     std::cin.get();
 }
+
 
 void process_option_2()
 {

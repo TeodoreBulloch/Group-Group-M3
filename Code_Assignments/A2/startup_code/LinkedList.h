@@ -12,6 +12,8 @@ public:
     // more functions to be added perhaps...
     
     void appendNode(Node * node);
+    void displayItems(); 
+
 private:
     // the beginning of the list
     Node* head;
