@@ -39,7 +39,7 @@ void LinkedList::appendNode(Node* node) {
     }
 }
 
-void LinkedList::displayItems() {
+void LinkedList::displayItems() const {
     Node* currNode = head;
 
 
@@ -67,6 +67,20 @@ void LinkedList::displayItems() {
         currNode = currNode->next;
     }
 }
+
+Node* LinkedList::findItem(const std::string& item_id) const {
+    Node* currentNode = head;
+
+    while (currentNode != nullptr) {
+        if (currentNode->data.id == item_id) {
+            return currentNode;
+        }
+        currentNode = currentNode->next;
+    }
+
+    return nullptr;
+}
+
 
 LinkedList::~LinkedList() {
     Node* currNode = head;

@@ -31,6 +31,11 @@ bool Coin::Pay(int pay) {
     }
 }
 
+int Coin::GetProductCost() const {
+    return product_cost;
+}
+
+
 std::list<int> Coin::Change(int difference) {
     std::list<int> change;
     while (1000 >= difference > 0 && this->ten_dollar > 0 && difference >= 1000) {

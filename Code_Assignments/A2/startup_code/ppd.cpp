@@ -15,9 +15,12 @@ using namespace std;
 
 //function protypes
 void print_menu();
-void process_option_1(const string& stock_file, const string& coin_file);
-void process_option_2();
+void process_option_1(const LinkedList& itemList);
+void process_option_2(const LinkedList& itemList, Coin& coinList);
 void process_option_3();
+LinkedList initializeLinkedList(const string& stock_file);
+Coin initializeCoins(const string& coin_file);
+
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -26,6 +29,17 @@ void process_option_3();
  **/
 int main(int argc, char **argv)
 {
+
+    if (argc != 3) {
+        std::cout << "Not correct amount of command line arguments given " << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    string stock_file = argv[1];
+    string coin_file = argv[2];
+    LinkedList itemList = initializeLinkedList(stock_file);
+    Coin coinList = initializeCoins(coin_file);
+
     int menu_choice;
 
     while (true)
@@ -33,24 +47,13 @@ int main(int argc, char **argv)
         print_menu();
         std::cin >> menu_choice;
 
-        if (menu_choice == 1)
-        {
-            if (argc != 3)
-            {
-                std::cout << "Not correct amount of command line arguments given " << std::endl;
-            }
-            else
-            {
-                string stock_file = argv[1];
-                string coin_file = argv[2];
-
-                process_option_1(stock_file, coin_file); 
-            }
+        if (menu_choice == 1) {
+            process_option_1(itemList);
         }
 
         else if (menu_choice == 2)
         {
-            // Implement the logic for option 2 here
+            process_option_2(itemList, coinList);
         }
         else if (menu_choice == 3)
         {
@@ -93,21 +96,15 @@ void print_menu()
     cout << "Select your option (1-9):" << endl;
 }
 
-#include "LinkedList.h"
-
-void process_option_1(const string& stock_file, const string& coin_file)
-{
+LinkedList initializeLinkedList(const string& stock_file) {
     std::fstream file1;
     file1.open(stock_file);
-
     LinkedList itemList;
 
-    if (file1)
-    {
+    if (file1) {
         string myText;
 
-        while (getline(file1, myText))
-        {
+        while (getline(file1, myText)) {
             char separator = '|';
             int i = 0;
             string s;
@@ -166,24 +163,91 @@ void process_option_1(const string& stock_file, const string& coin_file)
             // Add the new node to the linked list
             itemList.appendNode(newNode);
         }
-
-        // Call the displayItems function to display the content
-        itemList.displayItems();
-    }
-    else
-    {
-        cout << "File Name/s seems to be wrongs, please check file name again" << endl;
+    } else {
+        cout << "File Name seems to be wrong, please check file name again" << endl;
     }
 
     file1.close();
+    return itemList;
+}
+
+Coin initializeCoins(const string& coin_file) {
+    Coin coin;
+    ifstream file(coin_file);
+
+    if (file.is_open()) {
+        int coin_values[8];
+        int count = 0;
+
+        while (count < 8 && file >> coin_values[count]) {
+            // Read the comma
+            file.ignore(1);
+            count++;
+        }
+
+        // Initialize the coin stock
+        coin.StartStock(coin_values);
+    } else {
+        cout << "Unable to open coin file: " << coin_file << endl;
+    }
+
+    return coin;
+}
+
+void process_option_1(const LinkedList& itemList) {
+    itemList.displayItems();
     std::cin.get();
 }
 
+void process_option_2(const LinkedList& itemList, Coin& coinList) {
+    string item_id;
+    int payment;
 
-void process_option_2()
-{
-    // Implement the logic for option 2 here
+    cout << "Purchase Item" << endl;
+    cout << "-------------" << endl;
+    cout << "Please enter the id of the item you wish to purchase: ";
+    cin >> item_id;
+
+    // Find the item with the given ID in the linked list
+    Node* itemNode = itemList.findItem(item_id);
+
+    if (itemNode == nullptr) {
+        cout << "Item not found." << endl;
+        return;
+    }
+
+    Stock item = itemNode->data;
+    int item_cost = item.price.dollars * 100 + item.price.cents;
+
+    coinList.Set_Cost(item_cost);
+
+    cout << "You have selected \"" << item.name << "\". This will cost you $" << item.price.dollars << "." << item.price.cents << "." << endl;
+    cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
+    cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
+
+    while (true) {
+        cin >> payment;
+
+        // Check for valid denominations
+        if (payment == 1000 || payment == 500 || payment == 200 || payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5) {
+            if (coinList.Pay(payment)) {
+                int change = coinList.Difference(coinList.GetProductCost());
+                list<int> returned_change = coinList.Change(change);
+
+                cout << "Here is your " << item.name << " and your change of $" << item.price.dollars << "." << item.price.cents << ": ";
+                for (int coin : returned_change) {
+                    cout << "$" << (coin / 100) << " ";
+                }
+                cout << endl;
+                break;
+            }
+        } else {
+            cout << "Error: $" << payment << " is not a valid denomination of money. Please try again." << endl;
+            cout << "You still need to give us $" << (coinList.GetProductCost() / 100) << "." << (coinList.GetProductCost() % 100) << ": ";
+        }
+    }
 }
+
 
 void process_option_3()
 {

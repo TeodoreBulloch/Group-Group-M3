@@ -31,6 +31,8 @@ public:
     bool Pay(int pay);
     std::list<int> Change(int difference);
     int Difference(int overpay);
+    int GetProductCost() const;
+
 private:
     int ten_dollar = 0;
     int five_dollar = 0;
