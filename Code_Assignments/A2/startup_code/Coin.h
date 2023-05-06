@@ -29,7 +29,7 @@ public:
     void StartStock(int coin []);
     void Set_Cost(int cost);
     bool Pay(int pay);
-    std::list<int> Change(int difference);
+    std::list<std::string> Change(int difference);
     int Difference(int overpay);
     int GetProductCost() const;
 
