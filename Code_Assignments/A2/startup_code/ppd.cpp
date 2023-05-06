@@ -220,7 +220,7 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
     int item_cost = item.price.dollars * 100 + item.price.cents;
 
     coinList.Set_Cost(item_cost);
-
+    
     cout << "You have selected \"" << item.name << "\". This will cost you $" << item.price.dollars << "." << item.price.cents << "." << endl;
     cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
     cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
@@ -234,7 +234,7 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
                 int change = coinList.Difference(coinList.GetProductCost());
                 list<int> returned_change = coinList.Change(change);
 
-                cout << "Here is your " << item.name << " and your change of $" << item.price.dollars << "." << item.price.cents << ": ";
+                cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
                 for (int coin : returned_change) {
                     cout << "$" << (coin / 100.0) << " ";
                 }
