@@ -35,7 +35,7 @@ public:
     int GetProductCost() const;
     void Reset();
     void DisplayCoins();
-    void SaveCoins();
+    void SaveCoins() const;
 
 private:
     int ten_dollar = 0;

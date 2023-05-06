@@ -84,11 +84,11 @@ Node* LinkedList::findItem(const std::string& item_id) const {
 void LinkedList::saveStock() const{
     Node* currNode = head;
     std::ofstream MyFile("test_stock.txt");
-    // while (currNode != nullptr) {
+    while (currNode != nullptr) {
         Node* nextNode = currNode->next;
         MyFile << currNode->data.id<<"|" << currNode->data.name<<"|"<<currNode->data.description<<"|"<<currNode->data.price.dollars<<"."<<currNode->data.price.cents<<"|" <<currNode->data.on_hand<< std::endl;
         currNode = nextNode;
-    
+    }
  }
 LinkedList::~LinkedList() {
     Node* currNode = head;
