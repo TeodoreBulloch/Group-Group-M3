@@ -159,6 +159,8 @@ void Coin::SaveCoins() {
     MyFile << "20," << this->twenty_cent;
     MyFile << "10," << this->ten_cent;
     MyFile << "5," << this->five_cent;
+
+    MyFile.close();
 }
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here
