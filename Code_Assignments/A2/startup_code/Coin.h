@@ -5,6 +5,7 @@
 // Coin.h defines the coin structure for managing currency in the system. 
 #define DELIM ","  // delimiter 
 #include <iostream>
+#include <fstream>
 
 // enumeration representing the various types of currency available in the system. 
 enum Denomination
@@ -34,6 +35,7 @@ public:
     int GetProductCost() const;
     void Reset();
     void DisplayCoins();
+    void SaveCoins();
 
 private:
     int ten_dollar = 0;

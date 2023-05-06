@@ -147,5 +147,18 @@ void Coin::DisplayCoins() {
     std::cout << "5 Dollar      |       " << this->five_dollar << std::endl;
     std::cout << "10 Dollar     |       " << this->ten_dollar << std::endl;
 }
+
+void Coin::SaveCoins() {
+    std::ofstream MyFile("test_coins.txt");
+
+    MyFile << "1000," << this->ten_dollar;
+    MyFile << "500," << this->five_dollar;
+    MyFile << "200," << this->two_dollar;
+    MyFile << "100," << this->one_dollar;
+    MyFile << "50," << this->fifty_cent;
+    MyFile << "20," << this->twenty_cent;
+    MyFile << "10," << this->ten_cent;
+    MyFile << "5," << this->five_cent;
+}
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here
