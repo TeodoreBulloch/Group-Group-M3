@@ -151,14 +151,14 @@ void Coin::DisplayCoins() {
 void Coin::SaveCoins() {
     std::ofstream MyFile("test_coins.txt");
 
-    MyFile << "1000," << this->ten_dollar;
-    MyFile << "500," << this->five_dollar;
-    MyFile << "200," << this->two_dollar;
-    MyFile << "100," << this->one_dollar;
-    MyFile << "50," << this->fifty_cent;
-    MyFile << "20," << this->twenty_cent;
-    MyFile << "10," << this->ten_cent;
-    MyFile << "5," << this->five_cent;
+    MyFile << "1000," << this->ten_dollar << std::endl;
+    MyFile << "500," << this->five_dollar << std::endl;
+    MyFile << "200," << this->two_dollar << std::endl;
+    MyFile << "100," << this->one_dollar << std::endl;
+    MyFile << "50," << this->fifty_cent << std::endl;
+    MyFile << "20," << this->twenty_cent << std::endl;
+    MyFile << "10," << this->ten_cent << std::endl;
+    MyFile << "5," << this->five_cent << std::endl;
 
     MyFile.close();
 }
