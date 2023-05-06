@@ -5,23 +5,23 @@ Coin::Coin()
 }
 
 void Coin::StartStock(int coin []) {
-    this->ten_dollar = coin[0];
-    this->five_dollar = coin[2];
-    this->two_dollar = coin[4];
-    this->one_dollar = coin[6];
-    this->fifty_cent = coin[8];
-    this->twenty_cent = coin[10];
-    this->ten_cent = coin[12];
-    this->five_cent = coin[14];
+    this->ten_dollar = coin[1];
+    this->five_dollar = coin[3];
+    this->two_dollar = coin[5];
+    this->one_dollar = coin[7];
+    this->fifty_cent = coin[9];
+    this->twenty_cent = coin[11];
+    this->ten_cent = coin[13];
+    this->five_cent = coin[15];
 
-    this->reset_ten_dollar = coin[0];
-    this->reset_five_dollar = coin[2];
-    this->reset_two_dollar = coin[4];
-    this->reset_one_dollar = coin[6];
-    this->reset_fifty_cent = coin[8];
-    this->reset_twenty_cent = coin[10];
-    this->reset_ten_cent = coin[12];
-    this->reset_five_cent = coin[14];
+    this->reset_ten_dollar = coin[1];
+    this->reset_five_dollar = coin[3];
+    this->reset_two_dollar = coin[5];
+    this->reset_one_dollar = coin[7];
+    this->reset_fifty_cent = coin[9];
+    this->reset_twenty_cent = coin[11];
+    this->reset_ten_cent = coin[13];
+    this->reset_five_cent = coin[15];
 }
 
 void Coin::Set_Cost(int cost) {
@@ -30,6 +30,30 @@ void Coin::Set_Cost(int cost) {
 
 bool Coin::Pay(int pay) {
     this->product_cost -= pay;
+    if (pay == 5) {
+        this->five_cent += 1;
+    }
+    else if (pay == 10) {
+        this->ten_cent += 1;
+    }
+    else if (pay == 20) {
+        this->twenty_cent += 1;
+    }
+    else if (pay == 50) {
+        this->fifty_cent += 1;
+    }
+    else if (pay == 100) {
+        this->one_dollar += 1;
+    }
+    else if (pay == 200) {
+        this->two_dollar += 1;
+    }
+    else if (pay == 500) {
+        this->five_dollar += 1;
+    }
+    else if (pay == 1000) {
+        this->ten_dollar += 1;
+    }
     if (this->product_cost > 0) {
         std::cout << "Amount left to pay: $" << this->product_cost/100.0 << std::endl;
         return false;

@@ -185,10 +185,10 @@ Coin initializeCoins(const string& coin_file) {
     ifstream file(coin_file);
 
     if (file.is_open()) {
-        int coin_values[8];
+        int coin_values[16];
         int count = 0;
 
-        while (count < 8 && file >> coin_values[count]) {
+        while (count < 16 && file >> coin_values[count]) {
             // Read the comma
             file.ignore(1);
             count++;
