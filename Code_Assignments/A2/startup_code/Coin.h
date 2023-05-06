@@ -32,6 +32,8 @@ public:
     std::list<int> Change(int difference);
     int Difference(int overpay);
     int GetProductCost() const;
+    void Reset();
+    void DisplayCoins();
 
 private:
     int ten_dollar = 0;
@@ -43,5 +45,13 @@ private:
     int ten_cent = 0;
     int five_cent = 0;
     int product_cost = 0;
+    int reset_ten_dollar = 0;
+    int reset_five_dollar = 0;
+    int reset_two_dollar = 0;
+    int reset_one_dollar = 0;
+    int reset_fifty_cent = 0;
+    int reset_twenty_cent = 0;
+    int reset_ten_cent = 0;
+    int reset_five_cent = 0;
 };
 #endif // COIN_H
