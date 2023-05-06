@@ -18,6 +18,8 @@ void print_menu();
 void process_option_1(const LinkedList& itemList);
 void process_option_2(const LinkedList& itemList, Coin& coinList);
 void process_option_3();
+void process_option_6(Coin& coinList);
+void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
 Coin initializeCoins(const string& coin_file);
 
@@ -58,7 +60,14 @@ int main(int argc, char **argv)
         else if (menu_choice == 3)
         {
             // Save and exit the program
+            process_option_3();
             return EXIT_SUCCESS;
+        }
+        else if(menu_choice == 6){
+            process_option_6(coinList);
+        }
+        else if(menu_choice == 8){
+            process_option_8(coinList);
         }
         else if (menu_choice == 9)
         {
@@ -220,7 +229,7 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
     int item_cost = item.price.dollars * 100 + item.price.cents;
 
     coinList.Set_Cost(item_cost);
-    
+
     cout << "You have selected \"" << item.name << "\". This will cost you $" << item.price.dollars << "." << item.price.cents << "." << endl;
     cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
     cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
@@ -252,4 +261,20 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
 void process_option_3()
 {
     // Implement the logic for option 3 here
+    ofstream MyFile("test.txt");
+
+  // Write to the file
+    MyFile << "testing write!";
+
+  // Close the file
+    MyFile.close();
+}
+
+void process_option_6(Coin& coinList)
+{
+   coinList.DisplayCoins();
+}
+void process_option_8(Coin& coinList)
+{
+    coinList.Reset();
 }
