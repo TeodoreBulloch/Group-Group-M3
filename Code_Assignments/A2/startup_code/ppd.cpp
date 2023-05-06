@@ -17,7 +17,7 @@ using namespace std;
 void print_menu();
 void process_option_1(const LinkedList& itemList);
 void process_option_2(const LinkedList& itemList, Coin& coinList);
-void process_option_3();
+void process_option_3(Coin& coinList);
 void process_option_6(Coin& coinList);
 void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
         else if (menu_choice == 3)
         {
             // Save and exit the program
-            process_option_3();
+            process_option_3(coinList);
             return EXIT_SUCCESS;
         }
         else if(menu_choice == 6){
@@ -258,16 +258,13 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
 }
 
 
-void process_option_3()
+void process_option_3(Coin& coinList)
 {
     // Implement the logic for option 3 here
-    ofstream MyFile("test.txt");
+    coinList.SaveCoins();
 
   // Write to the file
-    MyFile << "testing write!";
-
-  // Close the file
-    MyFile.close();
+   
 }
 
 void process_option_6(Coin& coinList)
