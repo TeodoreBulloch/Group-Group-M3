@@ -6,22 +6,22 @@ Coin::Coin()
 
 void Coin::StartStock(int coin []) {
     this->ten_dollar = coin[0];
-    this->five_dollar = coin[1];
-    this->two_dollar = coin[2];
-    this->one_dollar = coin[3];
-    this->fifty_cent = coin[4];
-    this->twenty_cent = coin[5];
-    this->ten_cent = coin[6];
-    this->five_cent = coin[7];
+    this->five_dollar = coin[2];
+    this->two_dollar = coin[4];
+    this->one_dollar = coin[6];
+    this->fifty_cent = coin[8];
+    this->twenty_cent = coin[10];
+    this->ten_cent = coin[12];
+    this->five_cent = coin[14];
 
     this->reset_ten_dollar = coin[0];
-    this->reset_five_dollar = coin[1];
-    this->reset_two_dollar = coin[2];
-    this->reset_one_dollar = coin[3];
-    this->reset_fifty_cent = coin[4];
-    this->reset_twenty_cent = coin[5];
-    this->reset_ten_cent = coin[6];
-    this->reset_five_cent = coin[7];
+    this->reset_five_dollar = coin[2];
+    this->reset_two_dollar = coin[4];
+    this->reset_one_dollar = coin[6];
+    this->reset_fifty_cent = coin[8];
+    this->reset_twenty_cent = coin[10];
+    this->reset_ten_cent = coin[12];
+    this->reset_five_cent = coin[14];
 }
 
 void Coin::Set_Cost(int cost) {
