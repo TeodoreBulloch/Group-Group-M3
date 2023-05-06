@@ -13,6 +13,15 @@ void Coin::StartStock(int coin []) {
     this->twenty_cent = coin[5];
     this->ten_cent = coin[6];
     this->five_cent = coin[7];
+
+    this->reset_ten_dollar = coin[0];
+    this->reset_five_dollar = coin[1];
+    this->reset_two_dollar = coin[2];
+    this->reset_one_dollar = coin[3];
+    this->reset_fifty_cent = coin[4];
+    this->reset_twenty_cent = coin[5];
+    this->reset_ten_cent = coin[6];
+    this->reset_five_cent = coin[7];
 }
 
 void Coin::Set_Cost(int cost) {
@@ -87,6 +96,17 @@ int Coin::Difference(int overpay) {
 
     return difference;
     
+}
+
+void Coin::Reset() {
+    this->ten_dollar = this->reset_ten_dollar;
+    this->five_dollar = this->reset_five_dollar;
+    this->two_dollar = this->reset_two_dollar;
+    this->one_dollar = this->reset_one_dollar;
+    this->fifty_cent = this->reset_fifty_cent;
+    this->twenty_cent = this->reset_twenty_cent;
+    this->ten_cent = this->reset_ten_cent;
+    this->five_cent = this->reset_five_cent;
 }
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here
