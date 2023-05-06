@@ -33,6 +33,7 @@ public:
     int Difference(int overpay);
     int GetProductCost() const;
     void Reset();
+    void DisplayCoins();
 
 private:
     int ten_dollar = 0;

@@ -108,5 +108,20 @@ void Coin::Reset() {
     this->ten_cent = this->reset_ten_cent;
     this->five_cent = this->reset_five_cent;
 }
+
+void Coin::DisplayCoins() {
+    std::cout << "Coins Summary" << std::endl;
+    std::cout << "-------------" << std::endl;
+    std::cout << "Denomination  |   Count" << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "5 Cents       |       " << this->five_cent << std::endl;
+    std::cout << "10 Cents      |       " << this->ten_cent << std::endl;
+    std::cout << "20 Cents      |       " << this->twenty_cent << std::endl;
+    std::cout << "50 Cents      |       " << this->fifty_cent << std::endl;
+    std::cout << "1 Dollar      |       " << this->one_dollar << std::endl;
+    std::cout << "2 Dollar      |       " << this->two_dollar << std::endl;
+    std::cout << "5 Dollar      |       " << this->five_dollar << std::endl;
+    std::cout << "10 Dollar     |       " << this->ten_dollar << std::endl;
+}
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here
