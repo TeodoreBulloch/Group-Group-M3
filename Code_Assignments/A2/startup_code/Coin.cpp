@@ -22,7 +22,7 @@ void Coin::Set_Cost(int cost) {
 bool Coin::Pay(int pay) {
     this->product_cost -= pay;
     if (this->product_cost > 0) {
-        std::cout << "Amount left to pay: " << this->product_cost << std::endl;
+        std::cout << "Amount left to pay: $" << this->product_cost/100 << std::endl;
         return false;
     }
     else {
