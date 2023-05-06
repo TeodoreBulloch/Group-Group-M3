@@ -236,7 +236,7 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
 
                 cout << "Here is your " << item.name << " and your change of $" << item.price.dollars << "." << item.price.cents << ": ";
                 for (int coin : returned_change) {
-                    cout << "$" << (coin / 100) << " ";
+                    cout << "$" << (coin / 100.0) << " ";
                 }
                 cout << endl;
                 break;
