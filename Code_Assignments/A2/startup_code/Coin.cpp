@@ -29,30 +29,39 @@ void Coin::Set_Cost(int cost) {
 }
 
 bool Coin::Pay(int pay) {
+
     this->product_cost -= pay;
     if (pay == 5) {
         this->five_cent += 1;
+        refund_5 += 1;
     }
     else if (pay == 10) {
         this->ten_cent += 1;
+        refund_10 += 1;
     }
     else if (pay == 20) {
         this->twenty_cent += 1;
+        refund_20 += 1;
     }
     else if (pay == 50) {
         this->fifty_cent += 1;
+        refund_50 += 1;
     }
     else if (pay == 100) {
         this->one_dollar += 1;
+        refund_100 += 1;
     }
     else if (pay == 200) {
         this->two_dollar += 1;
+        refund_200 += 1;
     }
     else if (pay == 500) {
         this->five_dollar += 1;
+        refund_500 += 1;
     }
     else if (pay == 1000) {
         this->ten_dollar += 1;
+        refund_1000 += 1;
     }
     if (this->product_cost > 0) {
         std::cout << "Amount left to pay: $" << this->product_cost/100.0 << std::endl;
@@ -162,6 +171,27 @@ void Coin::SaveCoins() const{
     MyFile << "5," << this->five_cent << std::endl;
 
     MyFile.close();
+}
+
+void Coin::RefundCoins() {
+    this->five_cent -= refund_5;
+    this->ten_cent -= refund_10;
+    this->twenty_cent -= refund_20;
+    this->fifty_cent -= refund_50;
+    this->one_dollar -= refund_100;
+    this->two_dollar -= refund_200;
+    this->five_dollar -= refund_500;
+    this->ten_dollar -= refund_1000;
+
+    this->refund_5 = 0;
+    this->refund_10 = 0;
+    this->refund_20 = 0;
+    this->refund_50 = 0;
+    this->refund_100 = 0;
+    this->refund_200 = 0;
+    this->refund_500 = 0;
+    this->refund_1000 = 0;
+    std::cout << "Transaction cancelled your money has been refunded." << std::endl;
 }
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here

@@ -210,13 +210,15 @@ void process_option_1(const LinkedList& itemList) {
 
 void process_option_2(const LinkedList& itemList, Coin& coinList) {
     string item_id;
-    int payment;
+    string input;
+    int payment = -1;
 
     cout << "Purchase Item" << endl;
     cout << "-------------" << endl;
     cout << "Please enter the id of the item you wish to purchase: ";
-    cin >> item_id;
-
+    getline(cin ,item_id);
+    getline(cin ,item_id);
+    cout << "item ID : " << item_id << endl;
     // Find the item with the given ID in the linked list
     Node* itemNode = itemList.findItem(item_id);
 
@@ -234,26 +236,47 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
     cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
     cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
 
-    while (true) {
-        cin >> payment;
-
-        // Check for valid denominations
-        if (payment == 1000 || payment == 500 || payment == 200 || payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5) {
-            if (coinList.Pay(payment)) {
-                int change = coinList.Difference(coinList.GetProductCost());
-                list<int> returned_change = coinList.Change(change);
-
-                cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
-                for (int coin : returned_change) {
-                    cout << "$" << (coin / 100.0) << " ";
-                }
-                cout << endl;
-                break;
+    bool purchasing = true;
+    while (purchasing) {
+        bool valid = false;
+        while (!valid){
+            getline(cin, input);
+            if(input == "") {
+                coinList.RefundCoins();
+                purchasing = false;
+                valid = true;
             }
-        } else {
-            cout << "Error: $" << payment << " is not a valid denomination of money. Please try again." << endl;
-            cout << "You still need to give us $" << (coinList.GetProductCost() / 100) << "." << (coinList.GetProductCost() % 100) << ": ";
+            else {
+                
+                try{
+                    payment = stoi(input);
+                    valid = true;
+                }
+                catch(exception &errc){
+                    cout<< "please input a valid amount: " << endl;
+
+                }
+            }
         }
+        // Check for valid denominations
+        if(purchasing){
+            if (payment == 1000 || payment == 500 || payment == 200 || payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5) {
+                if (coinList.Pay(payment)) {
+                    int change = coinList.Difference(coinList.GetProductCost());
+                    list<int> returned_change = coinList.Change(change);
+
+                    cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
+                    for (int coin : returned_change) {
+                        cout << "$" << (coin / 100.0) << " ";
+                    }
+                    cout << endl;
+                    purchasing = false;
+                }
+            } else {
+                cout << "Error: $" << payment << " is not a valid denomination of money. Please try again." << endl;
+                cout << "You still need to give us $" << (coinList.GetProductCost() / 100) << "." << (coinList.GetProductCost() % 100) << ": ";
+            }
+        }    
     }
 }
 

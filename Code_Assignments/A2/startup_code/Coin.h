@@ -36,6 +36,7 @@ public:
     void Reset();
     void DisplayCoins();
     void SaveCoins() const;
+    void RefundCoins();
 
 private:
     int ten_dollar = 0;
@@ -47,6 +48,7 @@ private:
     int ten_cent = 0;
     int five_cent = 0;
     int product_cost = 0;
+
     int reset_ten_dollar = 0;
     int reset_five_dollar = 0;
     int reset_two_dollar = 0;
@@ -55,5 +57,14 @@ private:
     int reset_twenty_cent = 0;
     int reset_ten_cent = 0;
     int reset_five_cent = 0;
+
+    int refund_5 = 0;
+    int refund_10 = 0;
+    int refund_20 = 0;
+    int refund_50 = 0;
+    int refund_100 = 0;
+    int refund_200 = 0;
+    int refund_500 = 0;
+    int refund_1000 = 0;
 };
 #endif // COIN_H
