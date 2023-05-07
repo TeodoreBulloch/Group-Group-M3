@@ -70,10 +70,12 @@ void LinkedList::displayItems() const {
 
 
 void LinkedList::addItem() const{
+    // Generates the new node for the data to be stored in.
     Node* newNode = new Node;
     if (newNode == NULL) {exit(1);}
     newNode->next = NULL;
 
+    // Goes to the tail of the LinkedList.
     Node* temp = head;
     int count = 1;
     while (temp != NULL) {
@@ -81,11 +83,15 @@ void LinkedList::addItem() const{
         temp = temp->next;
     }
 
+    // generates the next available id for the new item.
     newNode->data.id = "I000" + std::to_string(count);
+    // Variables.
     std::string newName;
     std::string newDesc;
-    int newDollars;
-    int newCents;
+    std::string newCost;
+    std::string newDollars;
+    std::string newCents;
+    Price newPrice;
 
     // can change to make it so that the 000's fit accordingly. eg 0009 -> 0010.
     std::cout << "The id of the new stock will be: I000" << count << std::endl;
@@ -96,14 +102,19 @@ void LinkedList::addItem() const{
     std::cin >> newDesc;
 
     std::cout << "\nEnter the item price: ";
-    std::cin >> newDollars;
-    std::cout << ".";
-    std::cin >> newCents;
+    std::cin >> newCost;
 
-    Price newPrice;
-    newPrice.dollars = newDollars;
-    newPrice.cents = newCents;
+    // seperates the dollars from the cents to add to Price class.
+    std::string s = newCost;
+    std::string delimiter = ".";
 
+    newDollars = s.substr(0, s.find(delimiter));
+    newPrice.dollars = std::stoi(newDollars);
+
+    newCents = s.substr(s.find(delimiter) + 1, std::string::npos);
+    newPrice.cents = std::stoi(newCents);
+
+    // adds all the new node data.
     newNode->data.name = newName;
     newNode->data.description = newDesc;
     newNode->data.price = newPrice;
