@@ -68,6 +68,31 @@ void LinkedList::displayItems() const {
     }
 }
 
+
+void LinkedList::addItem() const{
+    Node* newNode = new Node;
+    if (newNode == NULL) {exit(1);}
+    newNode->next = NULL;
+
+    Node* temp = head;
+    int count = 1;
+    while (temp != NULL) {
+        count = count+1;
+        temp = temp->next;
+    }
+
+    newNode->data.id = std::to_string(count);
+    // can change to make it so that double digits can fit.
+    std::cout << "The id of the new stock will be: ID000" << count << std::endl;
+
+    Node* currNode = head;
+    while (currNode->next != NULL){
+        currNode = currNode->next;
+    } 
+    currNode->next = newNode;
+
+}
+
 Node* LinkedList::findItem(const std::string& item_id) const {
     Node* currentNode = head;
 
