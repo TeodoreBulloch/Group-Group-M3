@@ -81,9 +81,33 @@ void LinkedList::addItem() const{
         temp = temp->next;
     }
 
-    newNode->data.id = std::to_string(count);
-    // can change to make it so that double digits can fit.
-    std::cout << "The id of the new stock will be: ID000" << count << std::endl;
+    newNode->data.id = "I000" + std::to_string(count);
+    std::string newName;
+    std::string newDesc;
+    int newDollars;
+    int newCents;
+
+    // can change to make it so that the 000's fit accordingly. eg 0009 -> 0010.
+    std::cout << "The id of the new stock will be: I000" << count << std::endl;
+    std::cout << "Enter the item name: ";
+    std::cin >> newName;
+    
+    std::cout << "\nEnter the item description: ";
+    std::cin >> newDesc;
+
+    std::cout << "\nEnter the item price: ";
+    std::cin >> newDollars;
+    std::cout << ".";
+    std::cin >> newCents;
+
+    Price newPrice;
+    newPrice.dollars = newDollars;
+    newPrice.cents = newCents;
+
+    newNode->data.name = newName;
+    newNode->data.description = newDesc;
+    newNode->data.price = newPrice;
+    newNode->data.on_hand = DEFAULT_STOCK_LEVEL;
 
     Node* currNode = head;
     while (currNode->next != NULL){
