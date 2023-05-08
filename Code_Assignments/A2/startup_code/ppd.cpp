@@ -19,7 +19,7 @@ void process_option_1(const LinkedList& itemList);
 void process_option_2(const LinkedList& itemList, Coin& coinList);
 void process_option_3(Coin& coinList,const LinkedList& itemList);
 void process_option_4(const LinkedList& itemList);
-void process_option_5(const LinkedList& itemList);
+void process_option_5(LinkedList& itemList);
 void process_option_6(Coin& coinList);
 void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
@@ -309,7 +309,7 @@ void process_option_4(const LinkedList& itemList)
     itemList.addItem();
 }
 
-void process_option_5(const LinkedList& itemList)
+void process_option_5(LinkedList& itemList)
 {
     itemList.removeItem();
 }

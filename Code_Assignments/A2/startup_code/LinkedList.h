@@ -18,7 +18,7 @@ public:
     Node* findItem(const std::string& item_id) const; // Add the std namespace before string
     void saveStock() const;
     void addItem() const;
-    void removeItem() const;
+    void removeItem();
 private:
     // the beginning of the list
     Node* head;

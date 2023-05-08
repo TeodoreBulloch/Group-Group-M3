@@ -129,28 +129,34 @@ void LinkedList::addItem() const{
 
 }
 
-void LinkedList::removeItem() const {
-    Node* currNode = head;
+void LinkedList::removeItem() {
+    if (head != NULL){
+        Node* currNode = head;
 
-    std::string itemID;
-    std::cout << "Enter the item id of the item to remove from the menu: ";
-    std::cin >> itemID;
+        std::string itemID;
+        std::cout << "Enter the item id of the item to remove from the menu: ";
+        std::cin >> itemID;
 
-    if (head->data.id == itemID){
-        delete currNode;
-    } else {
-        Node * prevNode = NULL;
-        while (currNode != NULL && currNode->data.id != itemID) {
-            prevNode = currNode;
-            currNode = currNode->next;
-        }
-        if (currNode != NULL) {
-            prevNode->next = currNode->next;
-            printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
+        if (head->data.id == itemID){
+            head = head->next;
             delete currNode;
+        } else {
+            Node * prevNode = NULL;
+            while (currNode != NULL && currNode->data.id != itemID) {
+                prevNode = currNode;
+                currNode = currNode->next;
+            }
+            if (currNode != NULL) {
+                prevNode->next = currNode->next;
+                printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
+                delete currNode;
+            }
+            else {std::cout << "Item ID not found.\n";}
         }
-        else {std::cout << "Item ID not found.";}
     }
+    
+    
+
 
 
 
