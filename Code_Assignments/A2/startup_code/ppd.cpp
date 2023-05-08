@@ -19,6 +19,7 @@ void process_option_1(const LinkedList& itemList);
 void process_option_2(const LinkedList& itemList, Coin& coinList);
 void process_option_3(Coin& coinList,const LinkedList& itemList);
 void process_option_4(const LinkedList& itemList);
+void process_option_5(const LinkedList& itemList);
 void process_option_6(Coin& coinList);
 void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
@@ -68,6 +69,11 @@ int main(int argc, char **argv)
         {
             // adding a new menu item.
             process_option_4(itemList);
+        }
+        else if (menu_choice == 5)
+        {
+            // adding a new menu item.
+            process_option_5(itemList);
         }
         else if(menu_choice == 6){
             process_option_6(coinList);
@@ -301,6 +307,11 @@ void process_option_3(Coin& coinList,const LinkedList& itemList)
 void process_option_4(const LinkedList& itemList)
 {
     itemList.addItem();
+}
+
+void process_option_5(const LinkedList& itemList)
+{
+    itemList.removeItem();
 }
 
 void process_option_6(Coin& coinList)

@@ -3,6 +3,7 @@
 #include <iomanip> // Add this include for setw
 #include <string> // Add this include for to_string
 
+
 using std::cout;
 using std::endl;
 using std::setw;
@@ -125,6 +126,34 @@ void LinkedList::addItem() const{
         currNode = currNode->next;
     } 
     currNode->next = newNode;
+
+}
+
+void LinkedList::removeItem() const {
+    Node* currNode = head;
+
+    std::string itemID;
+    std::cout << "Enter the item id of the item to remove from the menu: ";
+    std::cin >> itemID;
+
+    if (head->data.id == itemID){
+        delete currNode;
+    } else {
+        Node * prevNode = NULL;
+        while (currNode != NULL && currNode->data.id != itemID) {
+            prevNode = currNode;
+            currNode = currNode->next;
+        }
+        if (currNode != NULL) {
+            prevNode->next = currNode->next;
+            printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
+            delete currNode;
+        }
+        else {std::cout << "Item ID not found.";}
+    }
+
+
+
 
 }
 
