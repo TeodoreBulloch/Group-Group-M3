@@ -139,6 +139,7 @@ void LinkedList::removeItem() {
 
         if (head->data.id == itemID){
             head = head->next;
+            printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
             delete currNode;
         } else {
             Node * prevNode = NULL;
@@ -147,11 +148,11 @@ void LinkedList::removeItem() {
                 currNode = currNode->next;
             }
             if (currNode != NULL) {
-                prevNode->next = currNode->next;
                 printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
+                prevNode->next = currNode->next;
                 delete currNode;
             }
-            else {std::cout << "Item ID not found.\n";}
+            else {std::cout << "Item ID not found.\n\n";}
         }
     }
     

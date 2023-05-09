@@ -132,6 +132,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
             int count = 0;
             string id;
             string name;
+            string description;
             string available;
             string price;
 
@@ -150,6 +151,10 @@ LinkedList initializeLinkedList(const string& stock_file) {
                     else if (count == 1)
                     {
                         name = s;
+                    }
+                    else if (count == 2)
+                    {
+                        description = s;
                     }
                     else if (count == 3)
                     {
@@ -174,6 +179,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
             Node* newNode = new Node;
             newNode->data.id = id;
             newNode->data.name = name;
+            newNode->data.description = description;
             newNode->data.on_hand = std::stoi(available);
 
             // Parse price and store dollars and cents separately
