@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iomanip>
 #include <limits>
+#include <stdexcept>
 
 // using 
 using std::endl;
@@ -264,6 +265,7 @@ void process_option_2(LinkedList& itemList, Coin& coinList) {
         bool valid = false;
         while (!valid){
             getline(cin, input);
+            
             if(input == "") {
                 coinList.RefundCoins();
                 purchasing = false;
@@ -272,7 +274,16 @@ void process_option_2(LinkedList& itemList, Coin& coinList) {
             else {
                 
                 try{
+                    std::size_t count =0;
+                    while (count<input.length()){
+                        if (input[count] ==' '){
+                            throw std::invalid_argument("invalid argument");
+                        }
+                        count++;
+
+                    }
                     payment = stoi(input);
+                    cout<<"Checking Coin input" << payment << endl;
                     valid = true;
                 }
                 catch(exception &errc){
