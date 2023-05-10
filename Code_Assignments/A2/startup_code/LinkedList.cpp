@@ -155,13 +155,19 @@ void LinkedList::removeItem() {
             else {std::cout << "Item ID not found.\n\n";}
         }
     }
-    
-    
+}
 
+void LinkedList::resetStock() {
+    if (head != NULL) {
+        Node* currNode = head;
 
+        while (currNode != NULL) {
+            currNode->data.on_hand = DEFAULT_STOCK_LEVEL;
+            currNode = currNode->next;
+        }
+        std::cout << "\'All stock has been reset to the default level of 20.\'";
 
-
-
+    }
 }
 
 Node* LinkedList::findItem(const std::string& item_id) const {
