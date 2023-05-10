@@ -320,11 +320,13 @@ void process_option_3(Coin& coinList,const LinkedList& itemList)
 void process_option_4(const LinkedList& itemList)
 {
     itemList.addItem();
+    std::cin.get();
 }
 
 void process_option_5(LinkedList& itemList)
 {
     itemList.removeItem();
+    std::cin.get();
 }
 
 void process_option_6(Coin& coinList)
