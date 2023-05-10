@@ -6,6 +6,7 @@
 #define DELIM ","  // delimiter 
 #include <iostream>
 #include <fstream>
+#include "Node.h"
 
 // enumeration representing the various types of currency available in the system. 
 enum Denomination
@@ -48,15 +49,6 @@ private:
     int ten_cent = 0;
     int five_cent = 0;
     int product_cost = 0;
-
-    int reset_ten_dollar = 0;
-    int reset_five_dollar = 0;
-    int reset_two_dollar = 0;
-    int reset_one_dollar = 0;
-    int reset_fifty_cent = 0;
-    int reset_twenty_cent = 0;
-    int reset_ten_cent = 0;
-    int reset_five_cent = 0;
 
     int refund_5 = 0;
     int refund_10 = 0;

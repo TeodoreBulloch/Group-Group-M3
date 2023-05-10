@@ -55,6 +55,8 @@ public:
     
     // how many of this item do we have on hand? 
     unsigned on_hand;    
+
+    unsigned initial_on_hand;
 };
 
 /**

@@ -13,15 +13,6 @@ void Coin::StartStock(int coin []) {
     this->twenty_cent = coin[11];
     this->ten_cent = coin[13];
     this->five_cent = coin[15];
-
-    this->reset_ten_dollar = coin[1];
-    this->reset_five_dollar = coin[3];
-    this->reset_two_dollar = coin[5];
-    this->reset_one_dollar = coin[7];
-    this->reset_fifty_cent = coin[9];
-    this->reset_twenty_cent = coin[11];
-    this->reset_ten_cent = coin[13];
-    this->reset_five_cent = coin[15];
 }
 
 void Coin::Set_Cost(int cost) {
@@ -126,20 +117,19 @@ std::list<int> Coin::Change(int difference) {
 
 int Coin::Difference(int overpay) {
     int difference = abs(overpay);
-
     return difference;
-    
 }
 
 void Coin::Reset() {
-    this->ten_dollar = this->reset_ten_dollar;
-    this->five_dollar = this->reset_five_dollar;
-    this->two_dollar = this->reset_two_dollar;
-    this->one_dollar = this->reset_one_dollar;
-    this->fifty_cent = this->reset_fifty_cent;
-    this->twenty_cent = this->reset_twenty_cent;
-    this->ten_cent = this->reset_ten_cent;
-    this->five_cent = this->reset_five_cent;
+    this->ten_dollar = DEFAULT_COIN_COUNT;
+    this->five_dollar = DEFAULT_COIN_COUNT;
+    this->two_dollar = DEFAULT_COIN_COUNT;
+    this->one_dollar = DEFAULT_COIN_COUNT;
+    this->fifty_cent = DEFAULT_COIN_COUNT;
+    this->twenty_cent = DEFAULT_COIN_COUNT;
+    this->ten_cent = DEFAULT_COIN_COUNT;
+    this->five_cent = DEFAULT_COIN_COUNT;
+    std::cout << "All coins have been reset to the default level of " << DEFAULT_COIN_COUNT << std::endl;
 }
 
 void Coin::DisplayCoins() {

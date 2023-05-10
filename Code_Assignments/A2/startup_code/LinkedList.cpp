@@ -69,7 +69,6 @@ void LinkedList::displayItems() const {
     }
 }
 
-
 void LinkedList::addItem() const{
     // Generates the new node for the data to be stored in.
     Node* newNode = new Node;
@@ -155,12 +154,6 @@ void LinkedList::removeItem() {
             else {std::cout << "Item ID not found.\n\n";}
         }
     }
-    
-    
-
-
-
-
 
 }
 
@@ -189,6 +182,17 @@ void LinkedList::saveStock() const{
         currNode = nextNode;
     }
  }
+ 
+void LinkedList::Reset() {
+    Node* currNode = head;
+    while (currNode != nullptr) {
+        currNode->data.on_hand = DEFAULT_STOCK_LEVEL;
+        currNode = currNode->next;
+        
+    }
+    std::cout << "All stock has been reset to the default level of " << DEFAULT_STOCK_LEVEL << std::endl;
+}
+
 LinkedList::~LinkedList() {
     Node* currNode = head;
     while (currNode != nullptr) {

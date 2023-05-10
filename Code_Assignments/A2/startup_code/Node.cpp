@@ -13,6 +13,7 @@ Node::Node(const string& id, const string& name, const string& description, cons
     this->data.price = price;
     this->data.on_hand = on_hand;
     this->next = nullptr;
+    
 }
 
 Node::~Node() {

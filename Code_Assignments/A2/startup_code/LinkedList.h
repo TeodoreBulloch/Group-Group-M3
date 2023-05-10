@@ -19,6 +19,8 @@ public:
     void saveStock() const;
     void addItem() const;
     void removeItem();
+    void Reset();
+
 private:
     // the beginning of the list
     Node* head;

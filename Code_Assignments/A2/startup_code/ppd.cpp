@@ -16,11 +16,12 @@ using namespace std;
 //function protypes
 void print_menu();
 void process_option_1(const LinkedList& itemList);
-void process_option_2(const LinkedList& itemList, Coin& coinList);
+void process_option_2(LinkedList& itemList, Coin& coinList);
 void process_option_3(Coin& coinList,const LinkedList& itemList);
 void process_option_4(const LinkedList& itemList);
 void process_option_5(LinkedList& itemList);
 void process_option_6(Coin& coinList);
+void process_option_7(LinkedList& itemList);
 void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
 Coin initializeCoins(const string& coin_file);
@@ -77,6 +78,9 @@ int main(int argc, char **argv)
         }
         else if(menu_choice == 6){
             process_option_6(coinList);
+        }
+        else if(menu_choice == 7){
+            process_option_7(itemList);
         }
         else if(menu_choice == 8){
             process_option_8(coinList);
@@ -182,6 +186,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
             newNode->data.description = description;
             newNode->data.on_hand = std::stoi(available);
 
+
             // Parse price and store dollars and cents separately
             size_t dotPos = price.find('.');
             newNode->data.price.dollars = std::stoi(price.substr(0, dotPos));
@@ -226,7 +231,7 @@ void process_option_1(const LinkedList& itemList) {
     std::cin.get();
 }
 
-void process_option_2(const LinkedList& itemList, Coin& coinList) {
+void process_option_2(LinkedList& itemList, Coin& coinList) {
     string item_id;
     string input;
     int payment = -1;
@@ -288,6 +293,8 @@ void process_option_2(const LinkedList& itemList, Coin& coinList) {
                         cout << "$" << (coin / 100.0) << " ";
                     }
                     cout << endl;
+                    // Decrease the stock of the purchased item
+                    itemNode->data.on_hand--;
                     purchasing = false;
                 }
             } else {
@@ -323,8 +330,18 @@ void process_option_5(LinkedList& itemList)
 void process_option_6(Coin& coinList)
 {
    coinList.DisplayCoins();
+   std::cin.get();
 }
+
+void process_option_7(LinkedList& itemList) 
+{
+    itemList.Reset();
+    std::cin.get();
+}
+
+
 void process_option_8(Coin& coinList)
 {
     coinList.Reset();
+    std::cin.get();
 }
