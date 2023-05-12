@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 
 void print_menu()
 {
-    cout << "Main Menu: (fixing available)" << endl;
+    cout << "Main Menu:" << endl;
     cout << "\t1.Display Items" << endl;
     cout << "\t2.Purchase Items" << endl;
     cout << "\t3.Save and Exit" << endl;
@@ -185,13 +185,38 @@ LinkedList initializeLinkedList(const string& stock_file) {
             newNode->data.id = id;
             newNode->data.name = name;
             newNode->data.description = description;
-            newNode->data.on_hand = std::stoi(available);
 
+            //Handle conversion from string to int
+            try {
+                newNode->data.on_hand = std::stoi(available);
+            } catch (std::invalid_argument& e) {
+                std::cerr << "Invalid number of items available: " << available << std::endl;
+                continue; // Skip the current iteration
+            } catch (std::out_of_range& e) {
+                std::cerr << "Number of items available out of range: " << available << std::endl;
+                continue;
+            }
 
             // Parse price and store dollars and cents separately
             size_t dotPos = price.find('.');
-            newNode->data.price.dollars = std::stoi(price.substr(0, dotPos));
-            newNode->data.price.cents = std::stoi(price.substr(dotPos + 1));
+            if (dotPos == std::string::npos || dotPos == 0 || dotPos == price.size() - 1) {
+                std::cerr << "Invalid price format: " << price << ". Expected format: 'dollars.cents'" << std::endl;
+                delete newNode; // prevent memory leak
+                continue; // Skip the current iteration
+            } else {
+                try {
+                    newNode->data.price.dollars = std::stoi(price.substr(0, dotPos));
+                    newNode->data.price.cents = std::stoi(price.substr(dotPos + 1));
+                } catch (std::invalid_argument& e) {
+                    std::cerr << "Invalid price: " << price << std::endl;
+                    delete newNode; // prevent memory leak
+                    continue; // Skip the current iteration
+                } catch (std::out_of_range& e) {
+                    std::cerr << "Price out of range: " << price << std::endl;
+                    delete newNode;
+                    continue;
+                }
+            }
 
             // Add the new node to the linked list
             itemList.appendNode(newNode);
