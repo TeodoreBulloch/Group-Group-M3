@@ -326,9 +326,14 @@ void process_option_2(LinkedList& itemList, Coin& coinList) {
 
                     cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
                     for (int coin : returned_change) {
-                        cout << "$" << (coin / 100.0) << " ";
+                        if (coin < 100) {
+                            cout << coin << "c ";  // Print as cents if the coin is less than a dollar
+                        } else {
+                            cout << "$" << (coin / 100.0) << " ";  // Otherwise, print as dollars
+                        }
                     }
                     cout << endl;
+
                     // Decrease the stock of the purchased item
                     itemNode->data.on_hand--;
                     purchasing = false;
