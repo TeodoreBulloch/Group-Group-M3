@@ -130,6 +130,9 @@ void LinkedList::addItem() const{
         currNode = currNode->next;
     } 
     currNode->next = newNode;
+
+    printf("This item \"%s - %s.\" Has now been added to the menu.\n\n",currNode->data.name.c_str(), currNode->data.description.c_str());
+
 }
 
 
