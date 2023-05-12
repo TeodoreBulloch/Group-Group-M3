@@ -136,7 +136,6 @@ void LinkedList::addItem(){
     newNode->data.description = newDesc;
     newNode->data.price = newPrice;
     newNode->data.on_hand = DEFAULT_STOCK_LEVEL;
-
     
     Node* currNode = head;
     if (currNode == NULL) {
