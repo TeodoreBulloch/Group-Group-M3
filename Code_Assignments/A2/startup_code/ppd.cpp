@@ -322,21 +322,29 @@ void process_option_2(LinkedList& itemList, Coin& coinList) {
             if (payment == 1000 || payment == 500 || payment == 200 || payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5) {
                 if (coinList.Pay(payment)) {
                     int change = coinList.Difference(coinList.GetProductCost());
-                    list<int> returned_change = coinList.Change(change);
 
-                    cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
-                    for (int coin : returned_change) {
-                        if (coin < 100) {
-                            cout << coin << "c ";  // Print as cents if the coin is less than a dollar
-                        } else {
-                            cout << "$" << (coin / 100.0) << " ";  // Otherwise, print as dollars
-                        }
+                    if (!coinList.CanMakeChange(change)) {
+                        coinList.RefundCoins();
+                        cout << "Sorry, the machine does not have enough change for this transaction. Your payment has been refunded." << endl;
+                        purchasing = false;
                     }
-                    cout << endl;
+                    else {
+                        list<int> returned_change = coinList.Change(change);
 
-                    // Decrease the stock of the purchased item
-                    itemNode->data.on_hand--;
-                    purchasing = false;
+                        cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
+                        for (int coin : returned_change) {
+                            if (coin < 100) {
+                                cout << coin << "c ";  // Print as cents if the coin is less than a dollar
+                            } else {
+                                cout << "$" << (coin / 100.0) << " ";  // Otherwise, print as dollars
+                            }
+                        }
+                        cout << endl;
+
+                        // Decrease the stock of the purchased item
+                        itemNode->data.on_hand--;
+                        purchasing = false;
+                    }
                 }
             } else {
                 cout << "Error: $" << payment << " is not a valid denomination of money. Please try again." << endl;

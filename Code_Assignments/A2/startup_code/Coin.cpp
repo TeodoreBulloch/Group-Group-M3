@@ -183,5 +183,21 @@ void Coin::RefundCoins() {
     this->refund_1000 = 0;
     std::cout << "Transaction cancelled your money has been refunded." << std::endl;
 }
+
+bool Coin::CanMakeChange(int difference) {
+    int changeRequired = difference;
+
+    if (changeRequired >= 1000 && this->ten_dollar > 0) changeRequired %= 1000;
+    if (changeRequired >= 500 && this->five_dollar > 0) changeRequired %= 500;
+    if (changeRequired >= 200 && this->two_dollar > 0) changeRequired %= 200;
+    if (changeRequired >= 100 && this->one_dollar > 0) changeRequired %= 100;
+    if (changeRequired >= 50 && this->fifty_cent > 0) changeRequired %= 50;
+    if (changeRequired >= 20 && this->twenty_cent > 0) changeRequired %= 20;
+    if (changeRequired >= 10 && this->ten_cent > 0) changeRequired %= 10;
+    if (changeRequired >= 5 && this->five_cent > 0) changeRequired %= 5;
+
+    return changeRequired == 0;  // If we can make the exact change, return true.
+}
+
  // implement functions for managing coins; this may depend on your design.
 // Kelvin was here

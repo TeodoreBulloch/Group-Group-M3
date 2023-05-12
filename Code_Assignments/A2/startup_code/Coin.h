@@ -38,6 +38,7 @@ public:
     void DisplayCoins();
     void SaveCoins(std::string coinFile) const;
     void RefundCoins();
+    bool CanMakeChange(int difference);
 
 private:
     int ten_dollar = 0;
