@@ -165,8 +165,8 @@ void LinkedList::removeItem() {
                         currNode->data.id = "I000" + std::to_string(count);
                         count++;
                     }
-            }
-                }    
+                }
+            }    
             else {std::cout << "Item ID not found.\n\n";}
         }
     }
@@ -176,15 +176,19 @@ void LinkedList::removeItem() {
 Node* LinkedList::findItem(const std::string& item_id) const {
     Node* currentNode = head;
 
-    while (currentNode != nullptr) {
-        if (currentNode->data.id == item_id) {
-            return currentNode;
-        }
+    while (currentNode != NULL && currentNode->data.id != item_id) {
         currentNode = currentNode->next;
     }
-
-    return nullptr;
+    if (currentNode != NULL){
+        return currentNode;
+    }
+    else {
+        std::cout << "Item ID not found.\n\n";
+        return NULL;
+    }
 }
+
+
 
 void LinkedList::saveStock() const{
     // get node head and start save values
