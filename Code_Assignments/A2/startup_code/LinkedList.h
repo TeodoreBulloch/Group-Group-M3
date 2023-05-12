@@ -17,7 +17,7 @@ public:
     void displayItems() const; 
     Node* findItem(const std::string& item_id) const; // Add the std namespace before string
     void saveStock(std::string stockFile ) const;
-    void addItem() const;
+    void addItem();
     void removeItem();
     void Reset();
 

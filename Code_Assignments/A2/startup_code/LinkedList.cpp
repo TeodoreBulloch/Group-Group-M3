@@ -69,22 +69,12 @@ void LinkedList::displayItems() const {
     }
 }
 
-void LinkedList::addItem() const{
+void LinkedList::addItem(){
     // Generates the new node for the data to be stored in.
     Node* newNode = new Node;
     if (newNode == NULL) {exit(1);}
     newNode->next = NULL;
 
-    // Goes to the tail of the LinkedList.
-    Node* temp = head;
-    int count = 1;
-    while (temp != NULL) {
-        count = count+1;
-        temp = temp->next;
-    }
-
-    // generates the next available id for the new item.
-    newNode->data.id = "I000" + std::to_string(count);
     // Variables.
     std::string newName;
     std::string newDesc;
@@ -93,16 +83,36 @@ void LinkedList::addItem() const{
     std::string newCents;
     Price newPrice;
 
+    // Finds the highest id in the list and increments by 1 for the new item.
+    Node* temp = head;
+    int highestId = 0;
+    while (temp != NULL) {
+        std::string currId = temp->data.id.substr(1); // Removes "I" prefix
+        int currIdNum = std::stoi(currId);
+        if (currIdNum > highestId) {
+            highestId = currIdNum;
+        }
+        temp = temp->next;
+    }
+
+    int newIdNum = highestId + 1;
+    std::string newId = "I" + std::string(4 - std::to_string(newIdNum).length(), '0') + std::to_string(newIdNum); // Pads with zeros
+    newNode->data.id = newId;
+
     // can change to make it so that the 000's fit accordingly. eg 0009 -> 0010.
-    std::cout << "The id of the new stock will be: I000" << count << std::endl;
+    std::cout << "The id of the new stock will be: " << newId << std::endl;
+    std::cin.ignore();  // To ignore the newline character left in the input buffer by the previous input operation.
+
     std::cout << "Enter the item name: ";
-    std::cin >> newName;
+    std::getline(std::cin, newName);
     
     std::cout << "\nEnter the item description: ";
-    std::cin >> newDesc;
+    std::getline(std::cin, newDesc);
 
     std::string delimiter = ".";
-    while (true) {
+
+    bool validPrice = false;
+    while (!validPrice) {
         std::cout << "\nEnter the item price: ";
         std::cin >> newCost;
 
@@ -113,10 +123,12 @@ void LinkedList::addItem() const{
             if (!newDollars.empty() && !newCents.empty()) {
                 newPrice.dollars = std::stoi(newDollars);
                 newPrice.cents = std::stoi(newCents);
-                break;
+                validPrice = true;
             }
         }
-        std::cout << "Invalid price format. Please enter a price in the format 'dollars.cents: +0.00'.\n";
+        if (!validPrice) {
+            std::cout << "Invalid price format. Please enter a price in the format 'dollars.cents: +0.00'.\n";
+        }
     }
 
     // adds all the new node data.
@@ -125,11 +137,19 @@ void LinkedList::addItem() const{
     newNode->data.price = newPrice;
     newNode->data.on_hand = DEFAULT_STOCK_LEVEL;
 
+    
     Node* currNode = head;
-    while (currNode->next != NULL){
-        currNode = currNode->next;
-    } 
-    currNode->next = newNode;
+    if (currNode == NULL) {
+        // If list is empty, make newNode the head
+        head = newNode;
+    } else {
+        // Else, find the end of the list and append newNode
+        while (currNode->next != NULL) {
+            currNode = currNode->next;
+        }
+        currNode->next = newNode;
+        std::cout << "The item \"" << newName << "\" has been successfully added to the stock.\n";
+    }
 }
 
 

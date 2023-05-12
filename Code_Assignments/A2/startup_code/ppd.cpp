@@ -19,7 +19,7 @@ void print_menu();
 void process_option_1(const LinkedList& itemList);
 void process_option_2(LinkedList& itemList, Coin& coinList);
 void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFile, string coinFile);
-void process_option_4(const LinkedList& itemList);
+void process_option_4(LinkedList& itemList);
 void process_option_5(LinkedList& itemList);
 void process_option_6(Coin& coinList);
 void process_option_7(LinkedList& itemList);
@@ -141,32 +141,19 @@ LinkedList initializeLinkedList(const string& stock_file) {
             string available;
             string price;
 
-            while (myText[i] != '\0')
-            {
-                if (myText[i] != separator)
-                {
+            while (myText[i] != '\0') {
+                if (myText[i] != separator) {
                     s += myText[i];
-                }
-                else
-                {
-                    if (count == 0)
-                    {
+                } else {
+                    if (count == 0) {
                         id = s;
-                    }
-                    else if (count == 1)
-                    {
+                    } else if (count == 1) {
                         name = s;
-                    }
-                    else if (count == 2)
-                    {
+                    } else if (count == 2) {
                         description = s;
-                    }
-                    else if (count == 3)
-                    {
+                    } else if (count == 3) {
                         price = s;
-                    }
-                    else if (count == 4)
-                    {
+                    } else if (count == 4) {
                         available = s;
                     }
                     s.clear();
@@ -175,8 +162,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
                 i++;
             }
 
-            if (count == 4)
-            {
+            if (count == 4) {
                 available = s;
             }
 
@@ -186,15 +172,17 @@ LinkedList initializeLinkedList(const string& stock_file) {
             newNode->data.name = name;
             newNode->data.description = description;
 
+            bool validNode = true;
+
             //Handle conversion from string to int
             try {
                 newNode->data.on_hand = std::stoi(available);
             } catch (std::invalid_argument& e) {
                 std::cerr << "Invalid number of items available: " << available << std::endl;
-                continue; // Skip the current iteration
+                validNode = false;
             } catch (std::out_of_range& e) {
                 std::cerr << "Number of items available out of range: " << available << std::endl;
-                continue;
+                validNode = false;
             }
 
             // Parse price and store dollars and cents separately
@@ -202,24 +190,26 @@ LinkedList initializeLinkedList(const string& stock_file) {
             if (dotPos == std::string::npos || dotPos == 0 || dotPos == price.size() - 1) {
                 std::cerr << "Invalid price format: " << price << ". Expected format: 'dollars.cents'" << std::endl;
                 delete newNode; // prevent memory leak
-                continue; // Skip the current iteration
-            } else {
+                validNode = false;
+            } else if (validNode) {
                 try {
                     newNode->data.price.dollars = std::stoi(price.substr(0, dotPos));
                     newNode->data.price.cents = std::stoi(price.substr(dotPos + 1));
                 } catch (std::invalid_argument& e) {
                     std::cerr << "Invalid price: " << price << std::endl;
                     delete newNode; // prevent memory leak
-                    continue; // Skip the current iteration
+                    validNode = false;
                 } catch (std::out_of_range& e) {
                     std::cerr << "Price out of range: " << price << std::endl;
                     delete newNode;
-                    continue;
+                    validNode = false;
                 }
             }
 
-            // Add the new node to the linked list
-            itemList.appendNode(newNode);
+            // Add the new node to the linked list only if it is valid
+            if (validNode) {
+                itemList.appendNode(newNode);
+            }
         }
     } else {
         cout << "File Name seems to be wrong, please check file name again" << endl;
@@ -228,6 +218,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
     file1.close();
     return itemList;
 }
+
 
 Coin initializeCoins(const string& coin_file) {
     Coin coin;
@@ -366,7 +357,7 @@ void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFil
    
 }
 
-void process_option_4(const LinkedList& itemList)
+void process_option_4(LinkedList& itemList)
 {
     itemList.addItem();
     std::cin.get();
