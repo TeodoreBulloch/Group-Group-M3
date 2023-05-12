@@ -147,9 +147,9 @@ void Coin::DisplayCoins() {
     std::cout << "10 Dollar     |       " << this->ten_dollar << std::endl;
 }
 
-void Coin::SaveCoins() const{
+void Coin::SaveCoins(std::string coinFile) const{
     // Change test_coins.txt to Coins.dat later
-    std::ofstream MyFile("coins.dat");
+    std::ofstream MyFile(coinFile);
 
     MyFile << "1000," << this->ten_dollar << std::endl;
     MyFile << "500," << this->five_dollar << std::endl;

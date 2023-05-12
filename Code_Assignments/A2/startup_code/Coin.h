@@ -36,7 +36,7 @@ public:
     int GetProductCost() const;
     void Reset();
     void DisplayCoins();
-    void SaveCoins() const;
+    void SaveCoins(std::string coinFile) const;
     void RefundCoins();
 
 private:

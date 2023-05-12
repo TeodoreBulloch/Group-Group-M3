@@ -186,10 +186,10 @@ Node* LinkedList::findItem(const std::string& item_id) const {
     return nullptr;
 }
 
-void LinkedList::saveStock() const{
+void LinkedList::saveStock(std::string stockFile) const{
     // get node head and start save values
     Node* currNode = head;
-    std::ofstream MyFile("stock.dat");
+    std::ofstream MyFile(stockFile);
     while (currNode != nullptr) {
         Node* nextNode = currNode->next;
         //save data

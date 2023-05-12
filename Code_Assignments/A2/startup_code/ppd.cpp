@@ -18,7 +18,7 @@ using namespace std;
 void print_menu();
 void process_option_1(const LinkedList& itemList);
 void process_option_2(LinkedList& itemList, Coin& coinList);
-void process_option_3(Coin& coinList,const LinkedList& itemList);
+void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFile, string coinFile);
 void process_option_4(const LinkedList& itemList);
 void process_option_5(LinkedList& itemList);
 void process_option_6(Coin& coinList);
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
         else if (menu_choice == 3)
         {
             // Save and exit the program
-            process_option_3(coinList,itemList);
+            process_option_3(coinList,itemList,stock_file,coin_file);
             return EXIT_SUCCESS;
         }
         else if (menu_choice == 4)
@@ -317,12 +317,12 @@ void process_option_2(LinkedList& itemList, Coin& coinList) {
 }
 
 
-void process_option_3(Coin& coinList,const LinkedList& itemList)
+void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFile, string coinFile)
 {
     // Implement the logic for option 3 here
-    coinList.SaveCoins();
+    coinList.SaveCoins(coinFile);
 
-    itemList.saveStock();
+    itemList.saveStock(stockFile);
 
   // Write to the file
    
