@@ -20,6 +20,7 @@ public:
     void addItem() const;
     void removeItem();
     void Reset();
+    void sortItems();
 
 private:
     // the beginning of the list

@@ -21,28 +21,20 @@ void LinkedList::appendNode(Node* node) {
     }
     else {
         Node* currNode = head;
-        Node* prevNode = nullptr;
-
-        // Access the name attribute through the data member of the Node class
-        while (currNode != nullptr && currNode->data.name < node->data.name) {
-            prevNode = currNode;
+        //Node* prevNode = nullptr;
+        while (currNode->next != nullptr){
             currNode = currNode->next;
         }
+        while (currNode->next == nullptr) {
+            //prevNode = currNode;
+            currNode->next = node;
+        }
 
-        if (prevNode == nullptr) {
-            node->next = head;
-            head = node;
-        }
-        else {
-            node->next = currNode;
-            prevNode->next = node;
-        }
     }
 }
 
 void LinkedList::displayItems() const {
     Node* currNode = head;
-
 
     const int idWidth = 5;
     const int nameWidth = 40;
@@ -135,11 +127,22 @@ void LinkedList::removeItem() {
         std::string itemID;
         std::cout << "Enter the item id of the item to remove from the menu: ";
         std::cin >> itemID;
+        int headCount = 1;
+        int count = 2;
 
         if (head->data.id == itemID){
             head = head->next;
             printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
             delete currNode;
+            // updates head to be id0001
+            head->data.id = "I0001";
+            // updates other nodes to be sequencial.
+            while (currNode->next != NULL){
+                currNode = currNode->next;
+                currNode->data.id = "I000" + std::to_string(headCount);
+                headCount++;
+            }
+
         } else {
             Node * prevNode = NULL;
             while (currNode != NULL && currNode->data.id != itemID) {
@@ -150,7 +153,20 @@ void LinkedList::removeItem() {
                 printf("\"%s - %s - %s\"\n\n",currNode->data.id.c_str(), currNode->data.name.c_str(), currNode->data.description.c_str());
                 prevNode->next = currNode->next;
                 delete currNode;
+
+                if (currNode->next != NULL){
+                    currNode = currNode->next;
+                    currNode->data.id = itemID;
+
+                    currNode = head;
+
+                    while (currNode->next != NULL){
+                        currNode = currNode->next;
+                        currNode->data.id = "I000" + std::to_string(count);
+                        count++;
+                    }
             }
+                }    
             else {std::cout << "Item ID not found.\n\n";}
         }
     }
