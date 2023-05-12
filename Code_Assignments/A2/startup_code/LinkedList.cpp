@@ -101,18 +101,23 @@ void LinkedList::addItem() const{
     std::cout << "\nEnter the item description: ";
     std::cin >> newDesc;
 
-    std::cout << "\nEnter the item price: ";
-    std::cin >> newCost;
-
-    // seperates the dollars from the cents to add to Price class.
-    std::string s = newCost;
     std::string delimiter = ".";
+    while (true) {
+        std::cout << "\nEnter the item price: ";
+        std::cin >> newCost;
 
-    newDollars = s.substr(0, s.find(delimiter));
-    newPrice.dollars = std::stoi(newDollars);
-
-    newCents = s.substr(s.find(delimiter) + 1, std::string::npos);
-    newPrice.cents = std::stoi(newCents);
+        size_t pos = newCost.find(delimiter);
+        if (pos != std::string::npos && newCost.size() - pos == 3) {
+            newDollars = newCost.substr(0, pos);
+            newCents = newCost.substr(pos + 1, std::string::npos);
+            if (!newDollars.empty() && !newCents.empty()) {
+                newPrice.dollars = std::stoi(newDollars);
+                newPrice.cents = std::stoi(newCents);
+                break;
+            }
+        }
+        std::cout << "Invalid price format. Please enter a price in the format 'dollars.cents: +0.00'.\n";
+    }
 
     // adds all the new node data.
     newNode->data.name = newName;
@@ -125,8 +130,8 @@ void LinkedList::addItem() const{
         currNode = currNode->next;
     } 
     currNode->next = newNode;
-
 }
+
 
 void LinkedList::removeItem() {
     if (head != NULL){
