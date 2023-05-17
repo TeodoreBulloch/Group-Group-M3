@@ -1,0 +1,7 @@
+(To run you must put all files in this folder into Group-Group-)
+
+Generates test output:
+./ppd ~/APT_folder/APT_A2_M12/Group-Group-/Code_Assignments/A2/startup_code/stock.dat ~/APT_folder/APT_A2_M12/Group-Group-/Code_Assignments/A2/startup_code/coins.dat < test3.input > test3.actual_ppd_out
+
+Compares test output to test predicted:
+diff -w test3.output test3.actual_ppd_out
