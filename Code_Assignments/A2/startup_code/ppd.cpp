@@ -46,50 +46,60 @@ int main(int argc, char **argv)
     LinkedList itemList = initializeLinkedList(stock_file);
     Coin coinList = initializeCoins(coin_file);
 
-    int menu_choice;
+    string menu_choice;
 
     while (true)
     {
         print_menu();
+        string input;
         std::cin >> menu_choice;
 
-        if (menu_choice == 1) {
+        if (menu_choice == "1") {
             process_option_1(itemList);
         }
 
-        else if (menu_choice == 2)
+        else if (menu_choice == "2")
         {
             process_option_2(itemList, coinList);
         }
-        else if (menu_choice == 3)
+        else if (menu_choice == "3")
         {
             // Save and exit the program
             process_option_3(coinList,itemList,stock_file,coin_file);
             return EXIT_SUCCESS;
         }
-        else if (menu_choice == 4)
+        else if (menu_choice == "4")
         {
             // adding a new menu item.
             process_option_4(itemList);
         }
-        else if (menu_choice == 5)
+        else if (menu_choice == "5")
         {
             // adding a new menu item.
             process_option_5(itemList);
         }
-        else if(menu_choice == 6){
+        else if(menu_choice == "6"){
             process_option_6(coinList);
         }
-        else if(menu_choice == 7){
+        else if(menu_choice == "7"){
             process_option_7(itemList);
         }
-        else if(menu_choice == 8){
+        else if(menu_choice == "8"){
             process_option_8(coinList);
         }
-        else if (menu_choice == 9)
+        else if (menu_choice == "9")
         {
+
             // Abort the program
             return EXIT_FAILURE;
+        }
+        else if (menu_choice == "help")
+        {
+            
+            std::cout << "In the main Menu please choose a number between 1 and 9." << std::endl;
+            std::cout << "For example, you can input 2 to purchase an Item " << std::endl;
+            std::cout << "Press enter to go back to the main menu" << std::endl;
+            std::cin.get();
         }
         else
         {
