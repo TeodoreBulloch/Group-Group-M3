@@ -3,13 +3,11 @@
 #include <iomanip> // Add this include for setw
 #include <string> // Add this include for to_string
 
-
 using std::cout;
 using std::endl;
 using std::setw;
 using std::left;
 using std::to_string;
-
 
 LinkedList::LinkedList() {
     head = nullptr;
@@ -43,6 +41,49 @@ void LinkedList::appendNode(Node* node) {
 void LinkedList::displayItems() const {
     Node* currNode = head;
 
+    const int idWidth = 5;
+    const int nameWidth = 40;
+    const int availableWidth = 9;
+    const int priceWidth = 12;
+    const int optionsWidth = 20;
+
+    cout << "Items Menu" << endl;
+    cout << "----------" << endl;
+    cout << setw(idWidth) << left << "ID" << " | "
+    << setw(nameWidth) << left << "Name" << " | "
+    << setw(availableWidth) << left << "Available" << " | "
+    << setw(priceWidth) << left << "Price" << " | "
+    << setw(optionsWidth) << left << "Options" << endl;
+    cout << "---------------------------------------------------------------------------------------" << endl;
+
+    while (currNode != nullptr) {
+        Stock& item = currNode->data;
+
+        cout << setw(idWidth) << left << item.id << " | "
+             << setw(nameWidth) << left << item.name << " | "
+             << setw(availableWidth) << left << item.on_hand << " | "
+             << "$ " << setw(priceWidth) << left << (to_string(item.price.dollars) + "." + to_string(item.price.cents)) << " | ";
+
+        // Check if item_options is not nullptr before trying to access it
+        if (item.item_options != nullptr) {
+            Node* optionsNode = item.item_options->head;
+            while (optionsNode != nullptr) {
+                cout << optionsNode->data.name;
+                optionsNode = optionsNode->next;
+                if (optionsNode != nullptr) {
+                    cout << ", ";
+                }
+            }
+        }
+
+        cout << endl;
+
+        currNode = currNode->next;
+    }
+}
+
+void LinkedList::displayItemsOG() const {
+    Node* currNode = head;
 
     const int idWidth = 5;
     const int nameWidth = 40;
@@ -152,7 +193,6 @@ void LinkedList::addItem(){
     }
 }
 
-
 void LinkedList::removeItem() {
     if (head != NULL){
         Node* currNode = head;
@@ -202,11 +242,29 @@ void LinkedList::saveStock(std::string stockFile) const{
     while (currNode != nullptr) {
         Node* nextNode = currNode->next;
         //save data
-        MyFile << currNode->data.id<<"|" << currNode->data.name<<"|"<<currNode->data.description<<"|"<<currNode->data.price.dollars<<"."<<currNode->data.price.cents<<"|" <<currNode->data.on_hand<< std::endl;
+        MyFile << currNode->data.id<<"|" << currNode->data.name<<"|"<<currNode->data.description<<"|"<<currNode->data.price.dollars<<"."<<currNode->data.price.cents<<"|" <<currNode->data.on_hand;
+
+        // Save item options
+        LinkedList* item_options = currNode->data.item_options;
+        if (item_options != nullptr) {
+            Node* optionNode = item_options->head;
+            MyFile << "|"; // Start of the options field
+            while (optionNode != nullptr) {
+                MyFile << optionNode->data.name;
+                if (optionNode->next != nullptr) {
+                    MyFile << ","; // Separate options with commas
+                }
+                optionNode = optionNode->next;
+            }
+        }
+
+        MyFile << "|" << std::endl; // End of the line
         //get next node head
         currNode = nextNode;
     }
- }
+}
+
+
  
 void LinkedList::Reset() {
     Node* currNode = head;
@@ -226,5 +284,3 @@ LinkedList::~LinkedList() {
         currNode = nextNode;
     }
 }
-
-

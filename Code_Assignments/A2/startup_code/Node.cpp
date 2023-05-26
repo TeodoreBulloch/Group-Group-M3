@@ -17,4 +17,6 @@ Node::Node(const string& id, const string& name, const string& description, cons
 }
 
 Node::~Node() {
+    delete data.item_options; // Delete the LinkedList object
 }
+

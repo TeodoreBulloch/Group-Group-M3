@@ -2,7 +2,7 @@
 #define NODE_H
 #include <string> 
 #include "Coin.h"
-
+#include "LinkedList.h"
 
 //The length of the id string not counting the nul terminator
 #define IDLEN 5
@@ -28,6 +28,9 @@
  * of inaccuracy due to rounding. In the case of currency this really is
  * not acceptable so we introduce our own type to keep track of currency.
  **/
+
+class LinkedList;
+
 class Price
 {
 public:
@@ -57,6 +60,8 @@ public:
     unsigned on_hand;    
 
     unsigned initial_on_hand;
+
+    LinkedList* item_options;
 };
 
 /**

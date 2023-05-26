@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include "LinkedList.h"
+#include "behaviours/Behavior.h"
+#include "behaviours/DefaultBehavior.h"
+#include "behaviours/EnhancedBehavior.h"
 #include <string>
 #include <cmath>
 #include <iomanip>
@@ -16,8 +19,9 @@ using namespace std;
 
 //function protypes
 void print_menu();
-void process_option_1(const LinkedList& itemList);
-void process_option_2(LinkedList& itemList, Coin& coinList);
+void process_option_0(Behavior*& behavior, bool& useEnhanced);
+void process_option_1(const LinkedList& itemList, Behavior* behavior);
+void process_option_2(Behavior* behavior, LinkedList& itemList, Coin& coinList);
 void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFile, string coinFile);
 void process_option_4(LinkedList& itemList);
 void process_option_5(LinkedList& itemList);
@@ -25,8 +29,8 @@ void process_option_6(Coin& coinList);
 void process_option_7(LinkedList& itemList);
 void process_option_8(Coin& coinList);
 LinkedList initializeLinkedList(const string& stock_file);
-Coin initializeCoins(const string& coin_file);
-
+Coin initializeCoins(Behavior* behavior, const string& coin_file);
+Behavior* initializeBehavior(bool useEnhanced);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -43,24 +47,28 @@ int main(int argc, char **argv)
 
     string stock_file = argv[1];
     string coin_file = argv[2];
+    bool useEnhanced = false;
+    Behavior* behavior = initializeBehavior(useEnhanced);
     LinkedList itemList = initializeLinkedList(stock_file);
-    Coin coinList = initializeCoins(coin_file);
+    Coin coinList = initializeCoins(behavior, coin_file);
 
     string menu_choice;
 
     while (true)
     {
-        print_menu();
+        behavior->print_menu();
         string input;
         std::cin >> menu_choice;
 
-        if (menu_choice == "1") {
-            process_option_1(itemList);
+        if (menu_choice == "0") {
+            process_option_0(behavior, useEnhanced);
         }
-
+        else if (menu_choice == "1") {
+            process_option_1(itemList, behavior);
+        }
         else if (menu_choice == "2")
         {
-            process_option_2(itemList, coinList);
+            process_option_2(behavior, itemList, coinList);
         }
         else if (menu_choice == "3")
         {
@@ -89,7 +97,6 @@ int main(int argc, char **argv)
         }
         else if (menu_choice == "9")
         {
-
             // Abort the program
             return EXIT_FAILURE;
         }
@@ -113,6 +120,7 @@ int main(int argc, char **argv)
 
     }
 
+    delete behavior;
     return EXIT_SUCCESS;
 }
 
@@ -129,7 +137,8 @@ void print_menu()
     cout << "\t7.Reset Stock" << endl;
     cout << "\t8.Reset Coins" << endl;
     cout << "\t9.Abort Program" << endl;
-    cout << "Select your option (1-9):" << endl;
+    cout << "\t0.Switch to Enhanced Version" << endl;
+    cout << "Select your option (0-9):" << endl;
 }
 
 LinkedList initializeLinkedList(const string& stock_file) {
@@ -150,6 +159,7 @@ LinkedList initializeLinkedList(const string& stock_file) {
             string description;
             string available;
             string price;
+            LinkedList* item_options = nullptr;
 
             while (myText[i] != '\0') {
                 if (myText[i] != separator) {
@@ -165,6 +175,22 @@ LinkedList initializeLinkedList(const string& stock_file) {
                         price = s;
                     } else if (count == 4) {
                         available = s;
+                    } else {
+                        // Create a new LinkedList if it doesn't exist
+                        if (item_options == nullptr) {
+                            item_options = new LinkedList();
+                        }
+
+                        // Add item options to the linked list
+                        if (!s.empty()) { // Check if s is not empty
+                            std::istringstream ss(s);
+                            std::string option;
+                            while (std::getline(ss, option, ',')) {
+                                Node* optionNode = new Node;
+                                optionNode->data.name = option;
+                                item_options->appendNode(optionNode);
+                            }
+                        }
                     }
                     s.clear();
                     count++;
@@ -181,7 +207,8 @@ LinkedList initializeLinkedList(const string& stock_file) {
             newNode->data.id = id;
             newNode->data.name = name;
             newNode->data.description = description;
-
+            newNode->data.item_options = item_options;
+        
             bool validNode = true;
 
             //Handle conversion from string to int
@@ -229,132 +256,30 @@ LinkedList initializeLinkedList(const string& stock_file) {
     return itemList;
 }
 
-
-Coin initializeCoins(const string& coin_file) {
-    Coin coin;
-    ifstream file(coin_file);
-
-    if (file.is_open()) {
-        int coin_values[16];
-        int count = 0;
-
-        while (count < 16 && file >> coin_values[count]) {
-            // Read the comma
-            file.ignore(1);
-            count++;
-        }
-
-        // Initialize the coin stock
-        coin.StartStock(coin_values);
-    } else {
-        cout << "Unable to open coin file: " << coin_file << endl;
-    }
-
-    return coin;
+Coin initializeCoins(Behavior* behavior, const string& coin_file) {
+    return behavior->initializeCoins(coin_file);
 }
 
-void process_option_1(const LinkedList& itemList) {
-    itemList.displayItems();
+void process_option_0(Behavior*& behavior, bool& useEnhanced) {
+    delete behavior;
+    useEnhanced = !useEnhanced;
+    behavior = initializeBehavior(useEnhanced);
+}
+
+void process_option_1(const LinkedList& itemList, Behavior* behavior) {
+    EnhancedBehavior* enhancedBehavior = dynamic_cast<EnhancedBehavior*>(behavior);
+    if (enhancedBehavior != nullptr) {
+        itemList.displayItems();
+    } else {
+        itemList.displayItemsOG();
+    }
     std::cin.get();
 }
 
-void process_option_2(LinkedList& itemList, Coin& coinList) {
-    string item_id;
-    string input;
-    int payment = -1;
 
-    cout << "Purchase Item" << endl;
-    cout << "-------------" << endl;
-    cout << "Please enter the id of the item you wish to purchase: ";
-    getline(cin ,item_id);
-    getline(cin ,item_id);
-    cout << "item ID : " << item_id << endl;
-    // Find the item with the given ID in the linked list
-    Node* itemNode = itemList.findItem(item_id);
-
-    if (itemNode == nullptr) {
-        cout << "Item not found." << endl;
-        return;
-    }
-
-    Stock item = itemNode->data;
-    int item_cost = item.price.dollars * 100 + item.price.cents;
-
-    coinList.Set_Cost(item_cost);
-
-    cout << "You have selected \"" << item.name << "\". This will cost you $" << item.price.dollars << "." << item.price.cents << "." << endl;
-    cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
-    cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
-
-    bool purchasing = true;
-    while (purchasing) {
-        bool valid = false;
-        while (!valid){
-            getline(cin, input);
-            
-            if(input == "") {
-                coinList.RefundCoins();
-                purchasing = false;
-                valid = true;
-            }
-            else {
-                
-                try{
-                    std::size_t count =0;
-                    while (count<input.length()){
-                        if (input[count] ==' '){
-                            throw std::invalid_argument("invalid argument");
-                        }
-                        count++;
-
-                    }
-                    payment = stoi(input);
-                    cout<<"Checking Coin input" << payment << endl;
-                    valid = true;
-                }
-                catch(exception &errc){
-                    cout<< "please input a valid amount: " << endl;
-
-                }
-            }
-        }
-        // Check for valid denominations
-        if(purchasing){
-            if (payment == 1000 || payment == 500 || payment == 200 || payment == 100 || payment == 50 || payment == 20 || payment == 10 || payment == 5) {
-                if (coinList.Pay(payment)) {
-                    int change = coinList.Difference(coinList.GetProductCost());
-
-                    if (!coinList.CanMakeChange(change)) {
-                        coinList.RefundCoins();
-                        cout << "Sorry, the machine does not have enough change for this transaction. Your payment has been refunded." << endl;
-                        purchasing = false;
-                    }
-                    else {
-                        list<int> returned_change = coinList.Change(change);
-
-                        cout << "Here is your " << item.name << " and your change of $" << change/100.00 << ": ";
-                        for (int coin : returned_change) {
-                            if (coin < 100) {
-                                cout << coin << "c ";  // Print as cents if the coin is less than a dollar
-                            } else {
-                                cout << "$" << (coin / 100.0) << " ";  // Otherwise, print as dollars
-                            }
-                        }
-                        cout << endl;
-
-                        // Decrease the stock of the purchased item
-                        itemNode->data.on_hand--;
-                        purchasing = false;
-                    }
-                }
-            } else {
-                cout << "Error: $" << payment << " is not a valid denomination of money. Please try again." << endl;
-                cout << "You still need to give us $" << (coinList.GetProductCost() / 100) << "." << (coinList.GetProductCost() % 100) << ": ";
-            }
-        }    
-    }
+void process_option_2(Behavior* behavior, LinkedList& itemList, Coin& coinList) {
+    behavior->process_option_2(itemList, coinList);
 }
-
 
 void process_option_3(Coin& coinList,const LinkedList& itemList, string stockFile, string coinFile)
 {
@@ -391,9 +316,16 @@ void process_option_7(LinkedList& itemList)
     std::cin.get();
 }
 
-
 void process_option_8(Coin& coinList)
 {
     coinList.Reset();
     std::cin.get();
+}
+
+Behavior* initializeBehavior(bool useEnhanced) {
+    if (useEnhanced) {
+       return new EnhancedBehavior();
+    } else {
+        return new DefaultBehavior();
+    }
 }
